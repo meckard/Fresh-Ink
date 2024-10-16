@@ -1,0 +1,5 @@
+{
+    "prettier.configPath": "C:\\Users\\lumbe\\Documents\\Projects\\e-commerce-app\\.prettierrc.json",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+}
