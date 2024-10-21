@@ -1,9 +1,11 @@
 export default function Registration() {
   return (
     <div className="registration">
+      <div className="inputs">
       <h2>Register Here</h2>
       <label for="email">Email</label>
       <input
+        className="email"
         type="email"
         id="email"
         name="email"
@@ -14,6 +16,7 @@ export default function Registration() {
       />
       <label for="password">Password</label>
       <input
+        className="password"
         type="password"
         id="password"
         name="password"
@@ -22,6 +25,7 @@ export default function Registration() {
         maxlength="20"
         size="22"
       />
+      </div>
     </div>
   )
 }
