@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const findUser = require('./userUtils')
+const findUserByEmail = require('./userUtils')
 
 const login = async (email, password) => {
   try {

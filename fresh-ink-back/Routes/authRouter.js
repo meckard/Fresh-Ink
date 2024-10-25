@@ -2,11 +2,13 @@ const express = require('express')
 const router = express.Router()
 const util = require('../Utils/authUtils.js')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const jsonParser = bodyParser.json()
 
 module.exports = (app, passport) => {
   //parses req.body
+  app.use(cors())
   app.use(jsonParser)
   app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -16,8 +18,7 @@ module.exports = (app, passport) => {
     try {
       const response = await util.register(
         req.body.email,
-        req.body.firstName,
-        req.body.lastName,
+        req.body.password
       )
 
       res.status(200).send(response)
