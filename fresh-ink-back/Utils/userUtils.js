@@ -19,11 +19,11 @@ const findUserByEmail = async (email) => {
   }
 }
 
-const createUser = async (email, firstName, lastName) => {
-  const statment = `INSERT INTO public.user(email, first_name, last_name)
-                          VALUES($1, $2, $3)`
+const createUser = async (email, password) => {
+  const statment = `INSERT INTO public.user(email, password)
+                          VALUES($1, $2)`
 
-  const result = await db.query(statment, [email, firstName, lastName])
+  const result = await db.query(statment, [email, password])
 
   if (result.rows?.length) {
     return result.rows[0]

@@ -15,11 +15,11 @@ export default function Registration() {
   const passwordField = (e) => {
     setPassword(e.target.value)
   }
-  const data = {
-    email: Object.fromEntries.email,
+  /* const data = {
+    email: Object.fromEntries(email),
 
-    password: Object.fromEntries.password
-  }
+    password: Object.fromEntries(password)
+  } */
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -30,10 +30,10 @@ export default function Registration() {
         headers: {
           'Content-Type': 'application/json', // Specify JSON format
         },
-        body: JSON.stringify(data), // Convert data to JSON string
+        body: JSON.stringify(Object.fromEntries(formData)), // Convert data to JSON string
       })
 
-      const result = await response.json() // Parse JSON response from server
+      const result = await response // Parse JSON response from server
       console.log('Success:', result)
     } catch (error) {
       console.error('Error:', error)

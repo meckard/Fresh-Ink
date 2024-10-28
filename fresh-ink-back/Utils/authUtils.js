@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const findUserByEmail = require('./userUtils')
+const { findUserByEmail, createUser } = require('./userUtils')
 
 const login = async (email, password) => {
   try {
@@ -21,7 +21,7 @@ const login = async (email, password) => {
   }
 }
 
-const register = async (email, firstName, lastName) => {
+const register = async (email, password) => {
   try {
     const userExists = await findUserByEmail(email)
 
@@ -29,7 +29,10 @@ const register = async (email, firstName, lastName) => {
       throw createError(409, 'Email already in use')
     }
 
-    return await createUser(email, firstName, lastName)
+    const saltRounds = 10
+    const hashedPassword = await bcrypt.hash(password, saltRounds)
+
+    return await createUser(email, hashedPassword)
   } catch (err) {
     throw createError(500, err)
   }
