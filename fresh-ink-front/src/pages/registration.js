@@ -74,7 +74,7 @@ export default function Registration() {
             maxLength="20"
             size="22"
           />
-          <input type="submit" className="submit" />
+          <input type="submit" className="submit" value="Join the Gang" />
         </div>
       </form>
     </div>

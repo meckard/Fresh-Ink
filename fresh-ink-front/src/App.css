@@ -38,6 +38,10 @@ html {
   width: 300px;
 }
 
+.registration .submit {
+  margin: 40px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -55,4 +59,8 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.submit {
+  font-weight: bold;
 }
