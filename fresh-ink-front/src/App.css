@@ -8,6 +8,21 @@
   --color-bright-cyan: #00ffff;
 }
 
+@font-face {
+  font-family: "English-Towne";
+  src: url('./Assets/EnglishTowne.ttf');
+}
+
+@font-face {
+  font-family: "Cardo";
+  src: url('./Assets/Cardo/Cardo-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Cardo-Bold";
+  src: url('./Assets/Cardo/Cardo-Bold.ttf');
+}
+
 html {
   background-color: var(--color-slate-gray);
 }
@@ -63,4 +78,12 @@ form {
 
 .submit {
   font-weight: bold;
+}
+
+.home-page h1 {
+  font-family: 'English-Towne';
+}
+
+.home-page h2 {
+  font-family: 'Cardo-Bold';
 }
