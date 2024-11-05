@@ -24,7 +24,7 @@
 }
 
 html {
-  background-color: var(--color-slate-gray);
+  background-color: var(--color-off-white);
 }
 
 .registration {
@@ -80,10 +80,33 @@ form {
   font-weight: bold;
 }
 
+.home-page {
+  text-align: center;
+}
+
+.hero {
+  height: 50vh;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+  background-color: black;
+  margin: 50px 0;
+  box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
+}
+
 .home-page h1 {
   font-family: 'English-Towne';
+  font-size: 8em;
+  font-weight: 400;
+  margin: 30px;
 }
 
 .home-page h2 {
   font-family: 'Cardo-Bold';
+  color: var(--color-deep-red);
+  font-size: 3em;
+  padding: 0 0 40px 0;
+  margin: 0;
 }
