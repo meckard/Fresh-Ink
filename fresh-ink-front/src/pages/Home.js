@@ -1,4 +1,5 @@
-import logo from '../Assets/Images/Hero-logo-transparent.png'
+import logo from '../Assets/Images/Hero-logo-outside-transparent.png'
+import HomeCard from '../Components/homeProductCard'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
             The Sickest Tattoo Merch
           </h2>
       </div>
+      <HomeCard/>
     </div>
   )
 }

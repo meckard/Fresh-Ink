@@ -3,6 +3,7 @@ const router = express.Router()
 const db = require('../queries')
 
 module.exports = (app) => {
+  app.use(cors())
   app.use('/products', router)
 
   router.get('/', async (req, res, next) => {

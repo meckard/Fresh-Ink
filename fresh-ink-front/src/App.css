@@ -9,17 +9,17 @@
 }
 
 @font-face {
-  font-family: "English-Towne";
+  font-family: 'English-Towne';
   src: url('./Assets/EnglishTowne.ttf');
 }
 
 @font-face {
-  font-family: "Cardo";
+  font-family: 'Cardo';
   src: url('./Assets/Cardo/Cardo-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Cardo-Bold";
+  font-family: 'Cardo-Bold';
   src: url('./Assets/Cardo/Cardo-Bold.ttf');
 }
 
@@ -93,7 +93,7 @@ form {
   height: auto;
   background-color: black;
   margin: 50px 0;
-  box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
+
 }
 
 .home-page h1 {
