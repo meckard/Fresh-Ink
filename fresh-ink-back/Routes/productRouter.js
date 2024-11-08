@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../queries')
+const cors = require('cors')
 
 module.exports = (app) => {
   app.use(cors())

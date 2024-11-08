@@ -1,39 +1,41 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
-export default async function HomeCard() {
-const [products, setProducts] = useState('')
+export default function HomeCard() {
+  const [products, setProducts] = useState('')
 
-const getProducts = async () => {
-  try {
-    const response = await fetch('http://localhost:3003/products', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json', // Specify JSON format
-      },
-    })
+  const getProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3003/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Specify JSON format
+        },
+      })
 
-    const result = await response
-    console.log('Success:', result)
-    setProducts(result)
-  } catch (error) {
-    console.error('Error:', error)
+      const result = await response.json()
+      console.log('Success:', result)
+      setProducts(result)
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
-}
 
-useEffect(() => {
+  useEffect(() => {
     getProducts()
   }, [])
 
+  console.log(products)
 
   return (
     <div className="productlist">
       <h2>Products</h2>
-      {products ? (
+      {products ? products.map((product) => {
+        return(
         <div>
-          <h3>{products.name}</h3>
-          <p>{products.description}</p>
+          <h3>{product.name}</h3>
+          <p>{product.price}</p>
         </div>
-      ) : (
+      )}) : (
         <p>Loading...</p>
       )}
     </div>

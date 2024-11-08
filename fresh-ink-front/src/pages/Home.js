@@ -7,14 +7,14 @@ export default function Home() {
       <div className="banner">
         <img
           src={logo}
-          className='hero'
+          className="hero"
           alt="Fresh Ink logo with a sparrow and traditional tattoo flowers"
         />
-          <h2>
-            The Sickest Tattoo Merch
-          </h2>
+        <h2>The Sickest Tattoo Merch</h2>
       </div>
-      <HomeCard/>
+      <div>
+        <HomeCard />
+      </div>
     </div>
   )
 }
