@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import comingSoon from '../Assets/Images/comingsoon.jpg'
 
 export default function HomeCard() {
   const [products, setProducts] = useState('')
@@ -27,17 +28,23 @@ export default function HomeCard() {
   console.log(products)
 
   return (
-    <div className="productlist">
-      <h2>Products</h2>
-      {products ? products.map((product) => {
-        return(
-        <div>
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-        </div>
-      )}) : (
-        <p>Loading...</p>
-      )}
+    <div className="product-list">
+        <h2>Products</h2>
+      <div className="card-list">
+        {products ? (
+          products.map((product) => {
+            return (
+              <div className="product-card">
+                <img src={comingSoon} alt="product" />
+                <h3>{product.name}</h3>
+                <p className='price'>{`$${product.price}`}</p>
+              </div>
+            )
+          })
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   )
 }
