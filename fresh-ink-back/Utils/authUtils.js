@@ -4,7 +4,7 @@ const { findUserByEmail, createUser } = require('./userUtils')
 
 const login = async (email, password) => {
   try {
-    const userExists = await findUser.findUserByEmail(email)
+    const userExists = await findUserByEmail(email)
     if (!userExists) {
       throw createError(401, 'Incorrect username or password')
     }

@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
   const loginForm = document.forms.loginForm
   const formData = new FormData(loginForm)
+  console.log(Object.fromEntries(formData))
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -17,7 +21,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    try {
+     try {
       const response = await fetch('http://localhost:3003/auth/login', {
         method: 'POST', // POST request
         headers: {
@@ -39,7 +43,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="login-card">
-        <form id="login-form" onSubmit={handleSubmit}>
+        <form name='loginForm' id="loginForm" onSubmit={handleSubmit}>
           <div className="inputs">
             <h2>Login</h2>
             <label for="email">Email</label>
