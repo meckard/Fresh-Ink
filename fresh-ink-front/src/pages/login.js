@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router-dom'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  let navigate = useNavigate()
   const loginForm = document.forms.loginForm
   const formData = new FormData(loginForm)
-  console.log(Object.fromEntries(formData))
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -32,6 +31,7 @@ export default function Login() {
 
       const result = await response // Parse JSON response from server
       console.log('Success:', result)
+      navigate("/")
     } catch (error) {
       console.error('Error:', error)
     }
