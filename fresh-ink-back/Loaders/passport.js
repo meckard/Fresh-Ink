@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
+const FacebookStrategy = require('passport-facebook')
 
 //initialize passport and localstrategy
 module.exports = (app) => {
@@ -26,6 +27,24 @@ module.exports = (app) => {
           return done(err)
         }
       },
+    ),
+  )
+
+  passport.use(
+    new FacebookStrategy(
+      {
+        clientID: process.env.FACEBOOK_LOGIN_ID,
+        clientSecret: process.env.FACEBOOK_LOGIN_SECRET,
+        callbackURL: 'https://www.example.com/oauth2/redirect/facebook',
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          const user = 'hello'
+          return done(null, user);
+        } catch(err) {
+          return done(err);
+        }
+      }
     ),
   )
 
