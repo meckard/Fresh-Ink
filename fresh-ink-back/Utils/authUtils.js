@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const { findUserByEmail, createUser } = require('./userUtils')
+const { findUserByEmail, createUser, findUserByFacebookId, updateUser } = require('./userUtils')
 
 const login = async (email, password) => {
   try {
@@ -19,6 +19,22 @@ const login = async (email, password) => {
   } catch (err) {
     console.log(err)
   }
+}
+
+const facebookLogin = async (userId, facebookId, displayName) => {
+
+  try {
+    const user = await findUserByFacebookId(id)
+
+    if(!user) {
+      return updateUser(facebook, { facebookId, displayName }, userId  )
+    }
+
+    return user
+  } catch {
+    throw createError(500, err)
+  }
+    
 }
 
 const register = async (email, password) => {
@@ -41,4 +57,5 @@ const register = async (email, password) => {
 module.exports = {
   register,
   login,
+  facebookLogin
 }
