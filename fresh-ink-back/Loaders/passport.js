@@ -5,6 +5,7 @@ const FacebookStrategy = require('passport-facebook')
 
 //initialize passport and localstrategy
 module.exports = (app) => {
+  app.use (passport.initialize())
   app.use(passport.session())
 
   passport.serializeUser((user, done) => {
@@ -35,7 +36,7 @@ module.exports = (app) => {
       {
         clientID: process.env.FACEBOOK_LOGIN_ID,
         clientSecret: process.env.FACEBOOK_LOGIN_SECRET,
-        callbackURL: 'https://www.example.com/oauth2/redirect/facebook',
+        callbackURL: process.env.FACEBOOK_CALLBACK,
       },
       async (accessToken, refreshToken, profile, done) => {
         try {

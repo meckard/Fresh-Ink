@@ -57,4 +57,15 @@ module.exports = (app, passport) => {
       }
     },
   )
+
+  //facebook login route
+  router.get('/facebook', passport.authenticate('facebook'))
+
+  //facebook callback route
+  router.get('/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    async (req, res) => {
+      res.redirect('/');
+    }
+  );
 }

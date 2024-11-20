@@ -76,6 +76,9 @@ export default function Login() {
           </div>
         </form>
       </div>
+      <div className='social-login'>
+        <button className='facebook-button' href='/auth/facebook'>Facebook</button>
+      </div>
     </div>
   )
 }
