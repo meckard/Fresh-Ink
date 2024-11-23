@@ -40,7 +40,7 @@ module.exports = (app) => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const user = 'hello'
+          const user = await util.facebookLogin(profile)
           return done(null, user)
         } catch (err) {
           return done(err)

@@ -175,3 +175,18 @@ form {
   align-items: center;
   justify-content:center ;
 }
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.facebook-button {
+  background-color: blue;
+  height: 50px;
+  width: 200px;
+  font-weight: bold;
+  box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
+  margin: 50px;
+}

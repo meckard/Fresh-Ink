@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -8,6 +7,49 @@ export default function Login() {
   let navigate = useNavigate()
   const loginForm = document.forms.loginForm
   const formData = new FormData(loginForm)
+
+  const statusChangeCallback = (response) => {
+    if (response.status === 'connected') {
+      console.log('User is logged in and authenticated:', response)
+      // You can access the user ID and access token here
+      console.log('Access Token:', response.authResponse.accessToken)
+    } else if (response.status === 'not_authorized') {
+      console.log('User is logged into Facebook but not authorized your app.')
+    } else {
+      console.log('User is not logged into Facebook.')
+    }
+  }
+
+  useEffect(() => {
+    // Load the Facebook SDK script if not already loaded
+    if (!window.FB) {
+      ;(function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0]
+        if (d.getElementById(id)) return
+        js = d.createElement(s)
+        js.id = id
+        js.src = 'https://connect.facebook.net/en_US/sdk.js'
+        fjs.parentNode.insertBefore(js, fjs)
+      })(document, 'script', 'facebook-jssdk')
+    }
+
+    // Initialize the SDK once it's loaded
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: '1654648575100097', // Replace with your Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v21.0',
+      })
+
+      // Check login status after initialization
+      window.FB.getLoginStatus(function (response) {
+        statusChangeCallback(response) // Replace or define this function
+        console.log(response)
+      })
+    }
+  })
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -20,7 +62,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-     try {
+    try {
       const response = await fetch('http://localhost:3003/auth/login', {
         method: 'POST', // POST request
         headers: {
@@ -31,7 +73,7 @@ export default function Login() {
 
       const result = await response // Parse JSON response from server
       console.log('Success:', result)
-      navigate("/")
+      navigate('/')
     } catch (error) {
       console.error('Error:', error)
     }
@@ -40,10 +82,25 @@ export default function Login() {
     setPassword('')
   }
 
+  const handleFacebookLogin = () => {
+    window.FB.login(
+      function (response) {
+        if (response.status === 'connected') {
+          console.log('Logged in:', response)
+          // Handle success
+        } else {
+          console.log('User not authenticated:', response)
+          // Handle failure
+        }
+      },
+      { scope: 'public_profile,email' }, // Request specific permissions
+    )
+  }
+
   return (
     <div className="login">
       <div className="login-card">
-        <form name='loginForm' id="loginForm" onSubmit={handleSubmit}>
+        <form name="loginForm" id="loginForm" onSubmit={handleSubmit}>
           <div className="inputs">
             <h2>Login</h2>
             <label for="email">Email</label>
@@ -76,8 +133,8 @@ export default function Login() {
           </div>
         </form>
       </div>
-      <div className='social-login'>
-        <button className='facebook-button' href='/auth/facebook'>Facebook</button>
+      <div className="social-login">
+        <button onClick={handleFacebookLogin}>Login with Facebook</button>
       </div>
     </div>
   )
