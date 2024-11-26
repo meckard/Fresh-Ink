@@ -24,10 +24,26 @@ const login = async (email, password) => {
 const facebookLogin = async (userId, facebookId, displayName) => {
 
   try {
-    const user = await findUserByFacebookId(id)
+    const user = await findUserByFacebookId(facebookId)
 
     if(!user) {
-      return updateUser(facebook, { facebookId, displayName }, userId  )
+      return updateUser(Facebook, { facebookId, displayName }, userId  )
+    }
+
+    return user
+  } catch {
+    throw createError(500, err)
+  }
+    
+}
+
+const googleLogin = async (userId, googleId, displayName) => {
+
+  try {
+    const user = await findUserByFacebookId(googleId)
+
+    if(!user) {
+      return updateUser(google, { googleId, displayName }, userId  )
     }
 
     return user
@@ -57,5 +73,6 @@ const register = async (email, password) => {
 module.exports = {
   register,
   login,
+  googleLogin,
   facebookLogin
 }

@@ -68,4 +68,15 @@ module.exports = (app, passport) => {
       res.redirect('/');
     }
   );
+
+  // Google Login Endpoint
+  router.get('/google', passport.authenticate('google', { scope: ["profile"] } ));
+
+  // Google Login Callback Endpoint
+  router.get('/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    async (req, res) => {
+      res.redirect('/');
+    }
+  );
 }

@@ -2,10 +2,11 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
 const FacebookStrategy = require('passport-facebook')
+const GoogleStrategy = require('passport-google-oidc')
 
 //initialize passport and localstrategy
 module.exports = (app) => {
-  app.use (passport.initialize())
+  app.use(passport.initialize())
   app.use(passport.session())
 
   passport.serializeUser((user, done) => {
@@ -39,8 +40,28 @@ module.exports = (app) => {
         callbackURL: process.env.FACEBOOK_CALLBACK,
       },
       async (accessToken, refreshToken, profile, done) => {
+        const { id, displayName } = profile
         try {
           const user = await util.facebookLogin(profile)
+          return done(null, user)
+        } catch (err) {
+          return done(err)
+        }
+      },
+    ),
+  )
+
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        const { id, displayName } = profile
+        try {
+          const user = await util.googleLogin(profile)
           return done(null, user)
         } catch (err) {
           return done(err)

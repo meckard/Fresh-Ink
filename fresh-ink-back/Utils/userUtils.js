@@ -36,6 +36,23 @@ const findUserByFacebookId = async (id) => {
   }
 }
 
+const findUserByGoogleId = async (id) => {
+  try {
+    const userExists = await db.query(
+      `SELECT * FROM public.user WHERE google ->> 'id' = $1`,
+      [id],
+    )
+
+    if (userExists.rows?.length) {
+      return userExists.rows[0]
+    }
+
+    return null
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
 const createUser = async (email, password) => {
   const statment = `INSERT INTO public.user(email, password)
                           VALUES($1, $2)`
@@ -81,6 +98,7 @@ const updatePassword = async (userId, newPassword, email) => {
 module.exports = {
   findUserByEmail,
   findUserByFacebookId,
+  findUserByGoogleId,
   createUser,
   updateUser,
   updatePassword,
