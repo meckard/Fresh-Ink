@@ -6,30 +6,32 @@ import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import Registration from './pages/registration'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './pages/login'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: '/register',
-    element: <Registration/>
+    element: <Registration />,
   },
   {
     path: '/login',
-    element: <Login/>
-  }
+    element: <Login />,
+  },
 ])
+const clientId = process.env.GOOGLE_CLIENT_ID
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
+  <GoogleOAuthProvider clientId={clientId}>
     <RouterProvider router={router}>
       <App />
     </RouterProvider>
-  </React.StrictMode>,
+  </GoogleOAuthProvider>,
 )
 
 // If you want to start measuring performance in your app, pass a function

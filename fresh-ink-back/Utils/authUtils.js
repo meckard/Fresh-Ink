@@ -1,6 +1,7 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
 const { findUserByEmail, createUser, findUserByFacebookId, updateUser } = require('./userUtils')
+const { OAuth2Client } = require('google-auth-library');
 
 const login = async (email, password) => {
   try {
@@ -70,9 +71,25 @@ const register = async (email, password) => {
   }
 }
 
+const client = new OAuth2Client('540016111823-r9lif214uo6g7h36dsvo7u84lqgaegiu.apps.googleusercontent.com');
+
+async function verifyToken(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: '540016111823-r9lif214uo6g7h36dsvo7u84lqgaegiu.apps.googleusercontent.com',
+  });
+  const payload = ticket.getPayload();
+  console.log('User info:', payload);
+
+  // Get user info
+  const email = payload.email;
+  return email;
+}
+
 module.exports = {
   register,
   login,
   googleLogin,
-  facebookLogin
+  facebookLogin,
+  verifyToken
 }

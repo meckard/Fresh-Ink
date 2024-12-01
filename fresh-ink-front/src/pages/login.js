@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import GoogleSignInButton from '../Components/googleSignInButton'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -135,6 +136,7 @@ export default function Login() {
       </div>
       <div className="social-login">
         <button onClick={handleFacebookLogin}>Login with Facebook</button>
+        <GoogleSignInButton />
       </div>
     </div>
   )

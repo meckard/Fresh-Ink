@@ -16,10 +16,7 @@ module.exports = (app, passport) => {
 
   router.post('/register', async (req, res, next) => {
     try {
-      const response = await util.register(
-        req.body.email,
-        req.body.password
-      )
+      const response = await util.register(req.body.email, req.body.password)
 
       res.status(200).send(response)
     } catch (err) {
@@ -62,21 +59,37 @@ module.exports = (app, passport) => {
   router.get('/facebook', passport.authenticate('facebook'))
 
   //facebook callback route
-  router.get('/facebook/callback',
+  router.get(
+    '/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res) => {
-      res.redirect('/');
-    }
-  );
+      res.redirect('/')
+    },
+  )
 
   // Google Login Endpoint
-  router.get('/google', passport.authenticate('google', { scope: ["profile"] } ));
+  router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
 
   // Google Login Callback Endpoint
-  router.get('/google/callback',
+  router.get(
+    '/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
-      res.redirect('/');
+      res.redirect('/')
+    },
+  )
+
+  app.post('/google/jwt', async (req, res) => {
+    try {
+      const { token } = req.body
+      const email = await verifyToken(token)
+      console.log('Verified email:', email)
+
+      // Save email to your database (mock example)
+      res.json({ message: 'User saved', email })
+    } catch (err) {
+      console.error('Error verifying token:', err)
+      res.status(400).json({ error: 'Invalid token' })
     }
-  );
+  })
 }
