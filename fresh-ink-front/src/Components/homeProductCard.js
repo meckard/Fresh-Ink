@@ -6,7 +6,7 @@ export default function HomeCard() {
 
   const getProducts = async () => {
     try {
-      const response = await fetch('http://localhost:3003/products', {
+      const response = await fetch('https://localhost:3003/products', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify JSON format

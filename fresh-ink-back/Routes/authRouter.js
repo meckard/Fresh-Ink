@@ -81,8 +81,9 @@ module.exports = (app, passport) => {
 
   app.post('/google/jwt', async (req, res) => {
     try {
-      const { token } = req.body
-      const email = await verifyToken(token)
+      const token = req.body
+      console.log(token)
+      const email = await util.verifyToken(token.credential)
       console.log('Verified email:', email)
 
       // Save email to your database (mock example)
