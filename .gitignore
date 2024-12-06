@@ -3,3 +3,12 @@ fresh-ink-front/ca.key
 fresh-ink-front/cert.crt
 fresh-ink-front/cert.key
 .env
+fresh-ink-back/ca.crt
+fresh-ink-back/ca.key
+fresh-ink-back/cert.crt
+fresh-ink-back/cert.key
+
+ca.crt
+ca.key
+cert.crt
+cert.key

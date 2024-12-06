@@ -66,6 +66,20 @@ const createUser = async (email, password) => {
   return null
 }
 
+const createUserWithGoogle = async (email, googleId) => {
+
+  const statment = `INSERT INTO public.user(email, google)
+                          VALUES($1, $2)`
+
+  const result = await db.query(statment, [email, googleId])
+
+  if (result.rows?.length) {
+    return result.rows[0]
+  }
+
+  return null
+}
+
 const updateUser = async (column, info, userId) => {
   const statement = `UPDATE public.user SET ${column} = $1::text WHERE id = $2::int`
   const values = [column, info, userId]
@@ -102,4 +116,5 @@ module.exports = {
   createUser,
   updateUser,
   updatePassword,
+  createUserWithGoogle
 }

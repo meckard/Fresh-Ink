@@ -3,6 +3,7 @@ const router = express.Router()
 const util = require('../Utils/authUtils.js')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { findUserByEmail } = require('../Utils/userUtils.js')
 
 const jsonParser = bodyParser.json()
 
@@ -83,11 +84,13 @@ module.exports = (app, passport) => {
     try {
       const token = req.body
       console.log(token)
-      const email = await util.verifyToken(token.credential)
-      console.log('Verified email:', email)
+      const getInfo = await util.verifyToken(token.credential)
 
+      if (getInfo) {
+        util.registerWithGoogle(getInfo.email, getInfo.sub)
+      }
       // Save email to your database (mock example)
-      res.json({ message: 'User saved', email })
+      res.json({ message: 'User saved', getInfo })
     } catch (err) {
       console.error('Error verifying token:', err)
       res.status(400).json({ error: 'Invalid token' })

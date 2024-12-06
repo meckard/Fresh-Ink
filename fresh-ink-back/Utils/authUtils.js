@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const { findUserByEmail, createUser, findUserByFacebookId, updateUser } = require('./userUtils')
+const { findUserByEmail, createUser, findUserByFacebookId, updateUser, createUserWithGoogle } = require('./userUtils')
 const { OAuth2Client } = require('google-auth-library');
 
 const login = async (email, password) => {
@@ -71,6 +71,21 @@ const register = async (email, password) => {
   }
 }
 
+const registerWithGoogle = async (email, googleId) => {
+  try{
+    const userExists = await findUserByEmail(email)
+
+
+    if (userExists) {
+      throw createError(409, 'Email already in use')
+    }
+
+    return await createUserWithGoogle(email, googleId)
+  } catch (err) {
+    throw createError(500, err)
+  }
+}
+
 const client = new OAuth2Client('540016111823-r9lif214uo6g7h36dsvo7u84lqgaegiu.apps.googleusercontent.com');
 
 async function verifyToken(token) {
@@ -82,8 +97,11 @@ async function verifyToken(token) {
   console.log('User info:', payload);
 
   // Get user info
-  const email = payload.email;
-  return email;
+  const info = {
+    email: payload.email,
+    sub: payload.sub
+  }
+  return info;
 }
 
 module.exports = {
@@ -91,5 +109,6 @@ module.exports = {
   login,
   googleLogin,
   facebookLogin,
+  registerWithGoogle,
   verifyToken
 }
