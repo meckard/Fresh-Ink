@@ -27,11 +27,8 @@ export default function GoogleSignInButton() {
     console.log(error)
   }
   return (
-    <div>
-      <h2>React Google Login</h2>
-      <br />
-      <br />
-      <GoogleLogin onSuccess={handleGoogleLogin} onError={errorMessage} />
+    <div id='google-button'>
+      <GoogleLogin width='200px' onSuccess={handleGoogleLogin} onError={errorMessage} />
     </div>
   )
 }

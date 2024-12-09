@@ -39,7 +39,7 @@ const findUserByFacebookId = async (id) => {
 const findUserByGoogleId = async (id) => {
   try {
     const userExists = await db.query(
-      `SELECT * FROM public.user WHERE google ->> 'id' = $1`,
+      `SELECT * FROM public.user WHERE google = $1`,
       [id],
     )
 

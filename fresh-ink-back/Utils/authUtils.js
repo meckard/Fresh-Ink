@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const { findUserByEmail, createUser, findUserByFacebookId, updateUser, createUserWithGoogle } = require('./userUtils')
+const { findUserByEmail, createUser, findUserByFacebookId, updateUser, createUserWithGoogle, findUserByGoogleId } = require('./userUtils')
 const { OAuth2Client } = require('google-auth-library');
 
 const login = async (email, password) => {
@@ -74,7 +74,11 @@ const register = async (email, password) => {
 const registerWithGoogle = async (email, googleId) => {
   try{
     const userExists = await findUserByEmail(email)
+    const googleIdExists = await findUserByGoogleId(googleId)
 
+    if (googleIdExists) {
+      return email, googleId
+    }
 
     if (userExists) {
       throw createError(409, 'Email already in use')
