@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import GoogleSignInButton from '../Components/googleSignInButton'
+import FacebookSignInButton from '../Components/facebookSignInButton'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -20,37 +21,6 @@ export default function Login() {
       console.log('User is not logged into Facebook.')
     }
   }
-
-  useEffect(() => {
-    // Load the Facebook SDK script if not already loaded
-    if (!window.FB) {
-      ;(function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0]
-        if (d.getElementById(id)) return
-        js = d.createElement(s)
-        js.id = id
-        js.src = 'https://connect.facebook.net/en_US/sdk.js'
-        fjs.parentNode.insertBefore(js, fjs)
-      })(document, 'script', 'facebook-jssdk')
-    }
-
-    // Initialize the SDK once it's loaded
-    window.fbAsyncInit = function () {
-      window.FB.init({
-        appId: process.env.FACEBOOK_LOGIN_ID, // Replace with your Facebook App ID
-        cookie: true,
-        xfbml: true,
-        version: 'v21.0',
-      })
-
-      // Check login status after initialization
-      window.FB.getLoginStatus(function (response) {
-        statusChangeCallback(response) // Replace or define this function
-        console.log(response)
-      })
-    }
-  })
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -98,6 +68,7 @@ export default function Login() {
     )
   }
 
+
   return (
     <div className="login">
       <div className="login-card">
@@ -135,7 +106,8 @@ export default function Login() {
         </form>
       </div>
       <div className="social-login">
-        <button onClick={handleFacebookLogin}>Login with Facebook</button>
+        {/* <button className='facebook-button' onClick={handleFacebookLogin}>Login with Facebook</button> */}
+        <FacebookSignInButton/>
         <GoogleSignInButton />
       </div>
     </div>
