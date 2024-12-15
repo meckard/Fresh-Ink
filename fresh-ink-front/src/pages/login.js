@@ -34,7 +34,7 @@ export default function Login() {
     event.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:3003/auth/login', {
+      const response = await fetch('https://localhost:3003/auth/login', {
         method: 'POST', // POST request
         headers: {
           'Content-Type': 'application/json', // Specify JSON format

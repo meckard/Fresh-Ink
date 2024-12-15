@@ -57,16 +57,37 @@ module.exports = (app, passport) => {
   )
 
   //facebook login route
-  router.get('/facebook', passport.authenticate('facebook'))
+  /* router.get('/facebook', passport.authenticate('facebook')) */
+  router.get('/facebook', (req, res, next) => {
+    const redirectUri = 'https://localhost:3003/auth/facebook/callback'
+    console.log(req, res)
+    passport.authenticate('facebook', {
+      scope: ['email'],
+      callbackURL: redirectUri,
+    })(req, res, next)
+  })
 
-  //facebook callback route
+    //facebook callback route
   router.get(
     '/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res) => {
+      console.log(res)
       res.redirect('/')
     },
-  )
+  ) 
+
+  /* router.get(
+    'facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    (req, res) => {
+      if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+        res.json({ user: req.user })
+      } else {
+        res.redirect('/dashboard')
+      }
+    },
+  ) */
 
   // Google Login Endpoint
   router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
