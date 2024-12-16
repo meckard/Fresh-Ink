@@ -73,7 +73,7 @@ module.exports = (app, passport) => {
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res) => {
       console.log(res)
-      res.redirect('/')
+      res.redirect('https://localhost:3000/')
     },
   ) 
 

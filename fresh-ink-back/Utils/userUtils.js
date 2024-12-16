@@ -22,7 +22,7 @@ const findUserByEmail = async (email) => {
 const findUserByFacebookId = async (id) => {
   try {
     const userExists = await db.query(
-      `SELECT * FROM public.user WHERE facebook ->> 'id' = $1`,
+      `SELECT * FROM public.user WHERE facebook = $1`,
       [id],
     )
 
@@ -39,7 +39,7 @@ const findUserByFacebookId = async (id) => {
 const findUserByGoogleId = async (id) => {
   try {
     const userExists = await db.query(
-      `SELECT * FROM public.user WHERE google = $1`,
+      `SELECT * FROM public.user WHERE public.google = $1`,
       [id],
     )
 
@@ -67,7 +67,6 @@ const createUser = async (email, password) => {
 }
 
 const createUserWithGoogle = async (email, googleId) => {
-
   const statment = `INSERT INTO public.user(email, google)
                           VALUES($1, $2)`
 
@@ -116,5 +115,5 @@ module.exports = {
   createUser,
   updateUser,
   updatePassword,
-  createUserWithGoogle
+  createUserWithGoogle,
 }

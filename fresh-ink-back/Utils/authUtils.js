@@ -28,7 +28,7 @@ const facebookLogin = async (userId, facebookId, displayName) => {
     const user = await findUserByFacebookId(facebookId)
 
     if(!user) {
-      return updateUser(Facebook, { facebookId, displayName }, userId  )
+      return updateUser(facebook, facebookId, userId  )
     }
 
     return user
@@ -44,7 +44,7 @@ const googleLogin = async (userId, googleId, displayName) => {
     const user = await findUserByFacebookId(googleId)
 
     if(!user) {
-      return updateUser(google, { googleId, displayName }, userId  )
+      return updateUser(google, googleId, userId  )
     }
 
     return user

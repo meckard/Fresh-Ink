@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
+const {findUserByFacebookId} = require('../Utils/userUtils')
 const FacebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oidc')
 
@@ -23,7 +24,7 @@ module.exports = (app) => {
         .catch(done)
     } else if (type === 'facebook') {
       // Fetch the user from the database based on Facebook ID
-      util.findByFacebookId(id)
+      findUserByFacebookId(id)
         .then((user) => done(null, user))
         .catch(done)
     } else if (type === 'local') {
