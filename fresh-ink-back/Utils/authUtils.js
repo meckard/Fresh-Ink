@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const { findUserByEmail, createUser, findUserByFacebookId, updateUser, createUserWithGoogle, findUserByGoogleId } = require('./userUtils')
+const { findUserByEmail, createUser, createUserWithFacebook, findUserByFacebookId, updateUser, createUserWithGoogle, findUserByGoogleId } = require('./userUtils')
 const { OAuth2Client } = require('google-auth-library');
 
 const login = async (email, password) => {
@@ -22,13 +22,13 @@ const login = async (email, password) => {
   }
 }
 
-const facebookLogin = async (userId, facebookId, displayName) => {
+const facebookLogin = async (email, facebookId) => {
 
   try {
     const user = await findUserByFacebookId(facebookId)
 
     if(!user) {
-      return updateUser(facebook, facebookId, userId  )
+      registerWithFacebook(email, facebookId)
     }
 
     return user
@@ -36,6 +36,21 @@ const facebookLogin = async (userId, facebookId, displayName) => {
     throw createError(500, err)
   }
     
+}
+
+const registerWithFacebook = async (email, facebookid) => {
+  const userExists = findUserByEmail(email)
+  const facebookIdExists = findUserByFacebookId(facebookid)
+
+  if (facebookIdExists) {
+    return (email, facebookid)
+  }
+  if (userExists) {
+      throw createError(409, 'Email already in use')
+  }
+
+  return await createUserWithFacebook(email, facebookid)
+
 }
 
 const googleLogin = async (userId, googleId, displayName) => {
@@ -114,5 +129,6 @@ module.exports = {
   googleLogin,
   facebookLogin,
   registerWithGoogle,
+  registerWithFacebook,
   verifyToken
 }

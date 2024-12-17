@@ -79,6 +79,19 @@ const createUserWithGoogle = async (email, googleId) => {
   return null
 }
 
+const createUserWithFacebook = async (email, facebookId) => {
+  const statment = `INSERT INTO public.user(email, facebook)
+                          VALUES($1, $2)`
+
+  const result = await db.query(statment, [email, facebookId])
+
+  if (result.rows?.length) {
+    return result.rows[0]
+  }
+
+  return null
+}
+
 const updateUser = async (column, info, userId) => {
   const statement = `UPDATE public.user SET ${column} = $1::text WHERE id = $2::int`
   const values = [column, info, userId]
@@ -114,6 +127,7 @@ module.exports = {
   findUserByGoogleId,
   createUser,
   updateUser,
+  createUserWithFacebook,
   updatePassword,
   createUserWithGoogle,
 }
