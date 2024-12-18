@@ -106,7 +106,6 @@ export default function Login() {
         </form>
       </div>
       <div className="social-login">
-        {/* <button className='facebook-button' onClick={handleFacebookLogin}>Login with Facebook</button> */}
         <FacebookSignInButton/>
         <GoogleSignInButton />
       </div>

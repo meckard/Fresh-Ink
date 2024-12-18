@@ -1,7 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
-const {findUserByFacebookId} = require('../Utils/userUtils')
+const { findUserByFacebookId } = require('../Utils/userUtils')
 const FacebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oidc')
 
@@ -19,7 +19,8 @@ module.exports = (app) => {
 
     if (type === 'google') {
       // Fetch the user from the database based on Google ID
-      util.findByGoogleId(id)
+      util
+        .findByGoogleId(id)
         .then((user) => done(null, user))
         .catch(done)
     } else if (type === 'facebook') {
@@ -37,22 +38,6 @@ module.exports = (app) => {
     }
   })
 
-  /*  passport.use(
-    new LocalStrategy(
-      { usernameField: 'email' },
-      async (username, password, done) => {
-        try {
-          const login = await util.login(username, password)
-
-          console.log(login)
-          return done(null, login)
-        } catch (err) {
-          return done(err)
-        }
-      },
-    ),
-  ) */
-
   passport.use(
     new LocalStrategy((username, password, done) => {
       User.findOne({ username })
@@ -65,25 +50,6 @@ module.exports = (app) => {
         .catch(done)
     }),
   )
-
-  /* passport.use(
-    new FacebookStrategy(
-      {
-        clientID: process.env.FACEBOOK_LOGIN_ID,
-        clientSecret: process.env.FACEBOOK_LOGIN_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK,
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        const { id, displayName } = profile
-        try {
-          const user = await util.facebookLogin(profile)
-          return done(null, user)
-        } catch (err) {
-          return done(err)
-        }
-      },
-    ),
-  ) */
 
   passport.use(
     new FacebookStrategy(
@@ -105,37 +71,18 @@ module.exports = (app) => {
     ),
   )
 
-  /*  passport.use(
+  passport.use(
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK,
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        const { id, displayName } = profile
-        try {
-          const user = await util.googleLogin(profile)
-          return done(null, user)
-        } catch (err) {
-          return done(err)
-        }
-      },
-    ),
-  ) */
-
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: 'YOUR_GOOGLE_CLIENT_ID',
-        clientSecret: 'YOUR_GOOGLE_CLIENT_SECRET',
-        callbackURL: '/auth/google/callback',
+        callbackURL: 'https://localhost:3000',
       },
       (accessToken, refreshToken, profile, done) => {
         const user = {
           id: profile.id,
           name: profile.displayName,
-          email: profile.emails[0].value,
+          email: profile.emails,
           authType: 'google',
         }
         done(null, user)
