@@ -1,5 +1,6 @@
 const session = require('express-session')
 const { SESSION_SECRET } = require('../config')
+const { StrictMode } = require('react')
 
 //express setup
 module.exports = (app) => {
@@ -9,7 +10,8 @@ module.exports = (app) => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: false,
+        secure: true,
+        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       },
     }),

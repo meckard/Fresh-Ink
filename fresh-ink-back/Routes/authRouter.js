@@ -71,7 +71,12 @@ module.exports = (app, passport) => {
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res) => {
       await util.facebookLogin(res.req.user.email, res.req.user.id)
-      res.redirect('https://localhost:3000/')
+      if (req.isAuthenticated) {
+        console.log('session')
+        res.redirect('https://localhost:3000/')
+      } else {
+        console.log('naw')
+      }
     },
   )
 

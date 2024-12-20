@@ -1,7 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
-const { findUserByFacebookId } = require('../Utils/userUtils')
+const { findUserByFacebookId, findUserByEmail, findUserByGoogleId } = require('../Utils/userUtils')
 const FacebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oidc')
 
@@ -15,22 +15,22 @@ module.exports = (app) => {
   })
 
   passport.deserializeUser((data, done) => {
-    const { id, type } = data
+    const { id, type, email } = data
 
     if (type === 'google') {
       // Fetch the user from the database based on Google ID
-      util
-        .findByGoogleId(id)
+      findUserByGoogleId(id)
         .then((user) => done(null, user))
         .catch(done)
     } else if (type === 'facebook') {
       // Fetch the user from the database based on Facebook ID
       findUserByFacebookId(id)
         .then((user) => done(null, user))
+        console.log('session')
         .catch(done)
     } else if (type === 'local') {
       // Fetch the user from the database based on Local ID
-      User.findById(id)
+      findUserByEmail(email)
         .then((user) => done(null, user))
         .catch(done)
     } else {
