@@ -1,7 +1,11 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const util = require('../Utils/authUtils')
-const { findUserByFacebookId, findUserByEmail, findUserByGoogleId } = require('../Utils/userUtils')
+const {
+  findUserByFacebookId,
+  findUserByEmail,
+  findUserByGoogleId,
+} = require('../Utils/userUtils')
 const FacebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oidc')
 
@@ -24,10 +28,8 @@ module.exports = (app) => {
         .catch(done)
     } else if (type === 'facebook') {
       // Fetch the user from the database based on Facebook ID
-      findUserByFacebookId(id)
-        .then((user) => done(null, user))
-        console.log('session')
-        .catch(done)
+      findUserByFacebookId(id).then((user) => done(null, user))
+      console.log('session').catch(done)
     } else if (type === 'local') {
       // Fetch the user from the database based on Local ID
       findUserByEmail(email)
@@ -76,9 +78,10 @@ module.exports = (app) => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'https://localhost:3000',
+        callbackURL: 'https://localhost:3003/auth/google/callback',
       },
-      (accessToken, refreshToken, profile, done) => {
+      (issuer, profile, done) => {
+        console.log(profile)
         const user = {
           id: profile.id,
           name: profile.displayName,

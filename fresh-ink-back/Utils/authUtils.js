@@ -53,13 +53,13 @@ const registerWithFacebook = async (email, facebookid) => {
 
 }
 
-const googleLogin = async (userId, googleId, displayName) => {
+const googleLogin = async (userId, googleId) => {
 
   try {
     const user = await findUserByFacebookId(googleId)
 
     if(!user) {
-      return updateUser(google, googleId, userId  )
+      return registerWithGoogle(userId, googleId)
     }
 
     return user

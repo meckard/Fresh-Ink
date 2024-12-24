@@ -81,31 +81,52 @@ module.exports = (app, passport) => {
   )
 
   // Google Login Endpoint
-  router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
+  router.get('/google', (req, res, next) => {
+    const redirectUri = 'https://localhost:3003/auth/google/callback'
+    passport.authenticate('google', {
+      scope: ['email','profile'],
+      callbackURL: redirectUri,
+    })(req, res, next)
+  })
 
   // Google Login Callback Endpoint
   router.get(
     '/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
-      res.redirect('/')
+      const token = req.body
+      console.log(req.user)
+      await util.googleLogin(res.req.user.email, res.req.user.id)
+      if (req.isAuthenticated) {
+        console.log('session')
+        res.redirect('https://localhost:3000/')
+      } else {
+        console.log('naw')
+      }
     },
   )
 
-  app.post('/google/jwt', async (req, res) => {
-    try {
-      const token = req.body
-      console.log(token)
-      const getInfo = await util.verifyToken(token.credential)
+  app.post(
+    '/google/jwt',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    async (req, res) => {
+      try {
+        const token = req.body
+        console.log(token)
+        const getInfo = await util.verifyToken(token.credential)
 
-      if (getInfo) {
-        util.registerWithGoogle(getInfo.email, getInfo.sub)
+        if (getInfo) {
+          util.registerWithGoogle(getInfo.email, getInfo.sub)
+        }
+
+        if (req.isAuthenticated) {
+          console.log('session')
+          res.redirect('https://localhost:3000/')
+        }
+      } catch (err) {
+        console.error('Error verifying token:', err)
+        res.status(400).json({ error: 'Invalid token' })
       }
-      // Save email to your database (mock example)
-      res.json({ message: 'User saved', getInfo })
-    } catch (err) {
-      console.error('Error verifying token:', err)
-      res.status(400).json({ error: 'Invalid token' })
-    }
-  })
+    },
+  )
 }
