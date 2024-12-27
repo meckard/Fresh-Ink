@@ -44,6 +44,7 @@ module.exports = (app, passport) => {
     passport.authenticate('local'),
     async (req, res, next) => {
       try {
+        console.log(req)
         const { email, password } = req.body
 
         const response = await util.login(email, password)
@@ -84,7 +85,7 @@ module.exports = (app, passport) => {
   router.get('/google', (req, res, next) => {
     const redirectUri = 'https://localhost:3003/auth/google/callback'
     passport.authenticate('google', {
-      scope: ['email','profile'],
+      scope: ['email', 'profile'],
       callbackURL: redirectUri,
     })(req, res, next)
   })

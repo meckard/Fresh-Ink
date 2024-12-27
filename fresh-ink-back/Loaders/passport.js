@@ -41,15 +41,13 @@ module.exports = (app) => {
   })
 
   passport.use(
-    new LocalStrategy((username, password, done) => {
-      User.findOne({ username })
-        .then((user) => {
-          if (!user) return done(null, false, { message: 'Incorrect username' })
-          if (!user.validatePassword(password))
-            return done(null, false, { message: 'Incorrect password' })
-          return done(null, { id: user.id, authType: 'local' })
-        })
-        .catch(done)
+    new LocalStrategy(async (email, password, done) => {
+      try {
+        const user = await util.login({ email, password })
+        return done(null, user)
+      } catch (err) {
+        return done(err)
+      }
     }),
   )
 
