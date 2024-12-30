@@ -25,7 +25,7 @@ export default function Registration() {
     event.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:3003/auth/register', {
+      const response = await fetch('https://localhost:3003/auth/register', {
         method: 'POST', // POST request
         headers: {
           'Content-Type': 'application/json', // Specify JSON format

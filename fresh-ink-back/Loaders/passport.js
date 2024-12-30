@@ -41,14 +41,17 @@ module.exports = (app) => {
   })
 
   passport.use(
-    new LocalStrategy(async (email, password, done) => {
-      try {
-        const user = await util.login({ email, password })
-        return done(null, user)
-      } catch (err) {
-        return done(err)
-      }
-    }),
+    new LocalStrategy(
+      { usernameField: 'email' },
+      async (email, password, done) => {
+        try {
+          const user = await util.login(email, password)
+          return done(null, user)
+        } catch (err) {
+          return done(err)
+        }
+      },
+    ),
   )
 
   passport.use(

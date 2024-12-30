@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import GoogleSignInButton from '../Components/googleSignInButton'
 import FacebookSignInButton from '../Components/facebookSignInButton'
@@ -7,20 +7,6 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   let navigate = useNavigate()
-  const loginForm = document.forms.loginForm
-  const formData = new FormData(loginForm)
-
-  const statusChangeCallback = (response) => {
-    if (response.status === 'connected') {
-      console.log('User is logged in and authenticated:', response)
-      // You can access the user ID and access token here
-      console.log('Access Token:', response.authResponse.accessToken)
-    } else if (response.status === 'not_authorized') {
-      console.log('User is logged into Facebook but not authorized your app.')
-    } else {
-      console.log('User is not logged into Facebook.')
-    }
-  }
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -34,6 +20,9 @@ export default function Login() {
     event.preventDefault()
 
     try {
+      const loginForm = document.querySelector('#loginForm')
+      const formData = new FormData(loginForm)
+
       const response = await fetch('https://localhost:3003/auth/login', {
         method: 'POST', // POST request
         headers: {
@@ -42,9 +31,12 @@ export default function Login() {
         body: JSON.stringify(Object.fromEntries(formData)), // Convert data to JSON string
       })
 
-      const result = await response // Parse JSON response from server
-      console.log('Success:', result)
-      navigate('/')
+      const result = await response.json() // Parse JSON response from server
+      console.log(result)
+      if (result) {
+        console.log('Success:', result)
+        navigate('/')
+      }
     } catch (error) {
       console.error('Error:', error)
     }
@@ -52,22 +44,6 @@ export default function Login() {
     setEmail('')
     setPassword('')
   }
-
-  const handleFacebookLogin = () => {
-    window.FB.login(
-      function (response) {
-        if (response.status === 'connected') {
-          console.log('Logged in:', response)
-          // Handle success
-        } else {
-          console.log('User not authenticated:', response)
-          // Handle failure
-        }
-      },
-      { scope: 'public_profile,email' }, // Request specific permissions
-    )
-  }
-
 
   return (
     <div className="login">
@@ -106,7 +82,7 @@ export default function Login() {
         </form>
       </div>
       <div className="social-login">
-        <FacebookSignInButton/>
+        <FacebookSignInButton />
         <GoogleSignInButton />
       </div>
     </div>

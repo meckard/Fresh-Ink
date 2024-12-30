@@ -41,16 +41,19 @@ module.exports = (app, passport) => {
 
   router.post(
     '/login',
+    jsonParser,
     passport.authenticate('local'),
     async (req, res, next) => {
       try {
         console.log(req)
         const { email, password } = req.body
+        console.log(email, password)
 
         const response = await util.login(email, password)
-
+        if(req.isAuthenticated){
         res.status(200).send(response)
         console.log('Logged In!')
+        }
       } catch (err) {
         console.log(err)
       }
