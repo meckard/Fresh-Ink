@@ -1,11 +1,10 @@
-import logo from './logo.svg'
-import Registration from './pages/registration'
 import './App.css'
+import Header from './Components/header'
 
 function App() {
   return (
     <div className="App">
-      <Registration />
+      <Header />
     </div>
   )
 }
