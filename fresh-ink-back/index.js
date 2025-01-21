@@ -16,17 +16,21 @@ async function startServer() {
     cert: fs.readFileSync(path.join( '..','cert.crt')),
   };
 
-  http.createServer(app).listen(3002, () => {
+   http.createServer(app).listen(3002, () => {
     console.log('HTTP server running on http://localhost:3002');
   });
   
   https.createServer(sslOptions, app).listen(3003, () => {
     console.log('HTTPS server running on https://localhost:3003');
-  });
+  }); 
 
-  /* app.listen(PORT, () => {
+   /* app.listen(PORT, () => {
     console.log(`Fresh Ink listening on port ${PORT}`)
-  }) */
+  })   */
 }
 
 startServer()
+ 
+
+
+

@@ -15,7 +15,8 @@ const login = async (email, password) => {
     if (!passwordCompare) {
       throw createError(401, 'Incorrect username or password')
     }
-
+    userExists.authType = 'local'
+    console.log('UE:', userExists)
     return userExists
   } catch (err) {
     console.log(err)

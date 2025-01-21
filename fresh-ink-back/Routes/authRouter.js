@@ -8,36 +8,14 @@ const { findUserByEmail } = require('../Utils/userUtils.js')
 const jsonParser = bodyParser.json()
 
 module.exports = (app, passport) => {
-  //parses req.body
-  app.use(cors())
-  app.use(jsonParser)
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(
+    cors({
+      origin: 'https://localhost:3000', // Frontend origin
+      credentials: true,
+    }),
+  )
 
   app.use('/auth', router)
-
-  router.post('/register', async (req, res, next) => {
-    try {
-      const response = await util.register(req.body.email, req.body.password)
-
-      res.status(200).send(response)
-    } catch (err) {
-      next(err)
-    }
-  })
-
-  router.post('/update-password', async (req, res, next) => {
-    try {
-      const response = await util.updatePassword(
-        req.body.id,
-        req.body.password,
-        req.body.email,
-      )
-
-      res.status(200).send(response)
-    } catch (err) {
-      next(err)
-    }
-  })
 
   router.post(
     '/login',
@@ -45,20 +23,44 @@ module.exports = (app, passport) => {
     passport.authenticate('local'),
     async (req, res, next) => {
       try {
-        console.log(req)
         const { email, password } = req.body
-        console.log(email, password)
+        console.log('Session:', req.session) // Check session data
+        console.log('User:', req.user)
+        console.log('Request Origin:', req.headers.origin)
 
         const response = await util.login(email, password)
-        if(req.isAuthenticated){
-        res.status(200).send(response)
-        console.log('Logged In!')
+        if (req.isAuthenticated) {
+          response.authType = 'local'
+          console.log('response', response)
+          res.status(200).send(response)
+          console.log('Logged In!')
         }
       } catch (err) {
         console.log(err)
       }
     },
   )
+
+  router.get('/status', (req, res) => {
+    console.log('Session:', req.session)
+    console.log('User:', req.user) // Should be populated by deserializeUser
+
+    if (req.isAuthenticated()) {
+      console.log('am authed')
+      res.json({ user: req.user })
+    } else {
+      res.status(401).json({ message: 'Unauthorized' })
+    }
+  })
+
+  router.post('/logout', (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error logging out' })
+      }
+      res.json({ message: 'Logged out successfully' })
+    })
+  })
 
   //facebook login route
   router.get('/facebook', (req, res, next) => {
@@ -99,7 +101,6 @@ module.exports = (app, passport) => {
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
       const token = req.body
-      console.log(req.user)
       await util.googleLogin(res.req.user.email, res.req.user.id)
       if (req.isAuthenticated) {
         console.log('session')
@@ -116,7 +117,6 @@ module.exports = (app, passport) => {
     async (req, res) => {
       try {
         const token = req.body
-        console.log(token)
         const getInfo = await util.verifyToken(token.credential)
 
         if (getInfo) {

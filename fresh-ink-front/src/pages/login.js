@@ -16,6 +16,24 @@ export default function Login() {
     setPassword(e.target.value)
   }
 
+  const sensitiveTest = async () => {
+    const response = await fetch('https://localhost:3003/auth/status', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://localhost:3000/',
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }) // Include session cookies
+    console.log('test response' ,response)
+    if (response.ok) {
+      const data = await response.json()
+      console.log('yeh', data)
+    } else {
+      console.log('naw')
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -26,16 +44,19 @@ export default function Login() {
       const response = await fetch('https://localhost:3003/auth/login', {
         method: 'POST', // POST request
         headers: {
-          'Content-Type': 'application/json', // Specify JSON format
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'https://localhost:3000/',
+          'Access-Control-Allow-Credentials': true,
         },
         body: JSON.stringify(Object.fromEntries(formData)), // Convert data to JSON string
+        credentials: 'include',
       })
 
       const result = await response.json() // Parse JSON response from server
-      console.log(result)
+      console.log('result', result)
       if (result) {
         console.log('Success:', result)
-        navigate('/')
+        // navigate('/')
       }
     } catch (error) {
       console.error('Error:', error)
@@ -84,6 +105,7 @@ export default function Login() {
       <div className="social-login">
         <FacebookSignInButton />
         <GoogleSignInButton />
+        <button onClick={sensitiveTest} />
       </div>
     </div>
   )

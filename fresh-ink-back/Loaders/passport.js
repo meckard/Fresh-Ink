@@ -6,32 +6,56 @@ const {
   findUserByEmail,
   findUserByGoogleId,
 } = require('../Utils/userUtils')
+const cors = require('cors')
+const session = require('express-session')
 const FacebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oidc')
 
 //initialize passport and localstrategy
 module.exports = (app) => {
+  /* app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: true,
+        sameSite: 'None',
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      },
+    }),
+  ) */
   app.use(passport.initialize())
   app.use(passport.session())
+  /* app.use(
+    cors({
+      origin: 'https://localhost:3000', // Specify the allowed origin
+      credentials: true,
+    }),
+  ) */
 
   passport.serializeUser((user, done) => {
-    done(null, { id: user.id, type: user.authType })
+    console.log('serial:', user)
+    done(null, { id: user.id, authType: user.authType, email: user.email })
   })
 
   passport.deserializeUser((data, done) => {
-    const { id, type, email } = data
+    console.log('deserial:', data)
+    const { id, authType, email } = data
 
-    if (type === 'google') {
+    if (authType === 'google') {
       // Fetch the user from the database based on Google ID
       findUserByGoogleId(id)
         .then((user) => done(null, user))
         .catch(done)
-    } else if (type === 'facebook') {
+    } else if (authType === 'facebook') {
       // Fetch the user from the database based on Facebook ID
       findUserByFacebookId(id).then((user) => done(null, user))
       console.log('session').catch(done)
-    } else if (type === 'local') {
+    } else if (authType === 'local') {
       // Fetch the user from the database based on Local ID
+      console.log('localdeser')
       findUserByEmail(email)
         .then((user) => done(null, user))
         .catch(done)
@@ -46,6 +70,8 @@ module.exports = (app) => {
       async (email, password, done) => {
         try {
           const user = await util.login(email, password)
+          user.authType = 'local'
+          console.log(user)
           return done(null, user)
         } catch (err) {
           return done(err)
