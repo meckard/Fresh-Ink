@@ -1,9 +1,18 @@
 import React from 'react'
 
 export default function FacebookSignInButton() {
-
-  const handleFacebookLogin = () => {
-    window.location.href = 'https://localhost:3003/auth/facebook'
+  const handleFacebookLogin = async () => {
+    const response = await fetch('https://localhost:3003/auth/facebook', {
+      method: 'GET', // POST request
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://localhost:3000/',
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    })
+    console.log(response)
+    return response
   }
 
   const errorMessage = (error) => {
@@ -11,11 +20,7 @@ export default function FacebookSignInButton() {
   }
   return (
     <div className="facebook-button">
-      <button
-        width="200px"
-        onClick={handleFacebookLogin}
-        onError={errorMessage}
-      />
+      <a href="https://localhost:3003/auth/facebook">facebook</a>
     </div>
   )
 }

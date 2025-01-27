@@ -51,8 +51,10 @@ module.exports = (app) => {
         .catch(done)
     } else if (authType === 'facebook') {
       // Fetch the user from the database based on Facebook ID
-      findUserByFacebookId(id).then((user) => done(null, user))
-      console.log('session').catch(done)
+      console.log('facebook deser')
+      findUserByFacebookId(id)
+        .then((user) => done(null, user))
+        .catch(done)
     } else if (authType === 'local') {
       // Fetch the user from the database based on Local ID
       console.log('localdeser')
@@ -86,6 +88,7 @@ module.exports = (app) => {
         clientID: process.env.FACEBOOK_LOGIN_ID,
         clientSecret: process.env.FACEBOOK_LOGIN_SECRET,
         callbackURL: 'https://localhost:3003/auth/facebook/callback',
+        state: true,
         profileFields: ['id', 'emails', 'name'],
       },
       (accessToken, refreshToken, profile, done) => {
@@ -95,6 +98,7 @@ module.exports = (app) => {
           email: profile.emails[0].value,
           authType: 'facebook',
         }
+        console.log('strategy user', user)
         done(null, user)
       },
     ),

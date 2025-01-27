@@ -28,6 +28,8 @@ const findUserByFacebookId = async (id) => {
 
     if (userExists.rows?.length) {
       return userExists.rows[0]
+    } else {
+
     }
 
     return null

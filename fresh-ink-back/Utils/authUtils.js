@@ -16,7 +16,6 @@ const login = async (email, password) => {
       throw createError(401, 'Incorrect username or password')
     }
     userExists.authType = 'local'
-    console.log('UE:', userExists)
     return userExists
   } catch (err) {
     console.log(err)
@@ -40,12 +39,8 @@ const facebookLogin = async (email, facebookId) => {
 }
 
 const registerWithFacebook = async (email, facebookid) => {
-  const userExists = findUserByEmail(email)
-  const facebookIdExists = findUserByFacebookId(facebookid)
+  const userExists = await findUserByEmail(email)
 
-  if (facebookIdExists) {
-    return (email, facebookid)
-  }
   if (userExists) {
       throw createError(409, 'Email already in use')
   }

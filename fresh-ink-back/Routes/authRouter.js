@@ -24,9 +24,6 @@ module.exports = (app, passport) => {
     async (req, res, next) => {
       try {
         const { email, password } = req.body
-        console.log('Session:', req.session) // Check session data
-        console.log('User:', req.user)
-        console.log('Request Origin:', req.headers.origin)
 
         const response = await util.login(email, password)
         if (req.isAuthenticated) {
@@ -42,9 +39,8 @@ module.exports = (app, passport) => {
   )
 
   router.get('/status', (req, res) => {
-    console.log('Session:', req.session)
-    console.log('User:', req.user) // Should be populated by deserializeUser
-
+    console.log('Session:', req.session) // Check session details
+    console.log('User:', req.user)
     if (req.isAuthenticated()) {
       console.log('am authed')
       res.json({ user: req.user })
@@ -64,11 +60,15 @@ module.exports = (app, passport) => {
 
   //facebook login route
   router.get('/facebook', (req, res, next) => {
-    const redirectUri = 'https://localhost:3003/auth/facebook/callback'
-    passport.authenticate('facebook', {
+    console.log('FBSession:', req.session) // Check session data
+    console.log('FBUser:', req.user)
+    /* const redirectUri = 'https://localhost:3003/auth/facebook/callback' */
+    passport.authenticate(
+      'facebook' /* , {
       scope: ['email'],
-      callbackURL: redirectUri,
-    })(req, res, next)
+      callbackURL: redirectUri, 
+    } */,
+    )(req, res, next)
   })
 
   //facebook callback route
@@ -76,7 +76,7 @@ module.exports = (app, passport) => {
     '/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res) => {
-      await util.facebookLogin(res.req.user.email, res.req.user.id)
+      await util.facebookLogin(req.user.email, req.user.id)
       if (req.isAuthenticated) {
         console.log('session')
         res.redirect('https://localhost:3000/')
@@ -101,7 +101,7 @@ module.exports = (app, passport) => {
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
       const token = req.body
-      await util.googleLogin(res.req.user.email, res.req.user.id)
+      await util.googleLogin(req.user.email, req.user.id)
       if (req.isAuthenticated) {
         console.log('session')
         res.redirect('https://localhost:3000/')
