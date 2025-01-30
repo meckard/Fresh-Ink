@@ -13,6 +13,7 @@ module.exports = (app) => {
       const values = []
 
       const result = await db.query(statement, values)
+      console.log(result.rows)
 
       res.status(200).send(result.rows)
     } catch (err) {

@@ -100,7 +100,7 @@ module.exports = (app, passport) => {
     '/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
-      const token = req.body
+      console.log('callback user', req.user)
       await util.googleLogin(req.user.email, req.user.id)
       if (req.isAuthenticated) {
         console.log('session')
