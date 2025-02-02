@@ -31,7 +31,7 @@ const Header = () => {
         </ul>
         <div className="nav-user">
           <div>
-            { user ? `hello ${user.email}`: <Link to='/login'>login</Link>  }
+            { user ? `hello ${user.email}`: <Link to='/login'>Login</Link>  }
             { user ? <button onClick={logout}>logout</button> : ''}
           </div>
         </div>

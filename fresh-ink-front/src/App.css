@@ -27,11 +27,15 @@ html {
   background-color: var(--color-off-white);
 }
 
+body {
+  font-family: 'Cardo'
+}
+
 nav {
   color: var(--main-orange);
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100px;
   border-bottom: 2px solid var(--color-deep-red);
@@ -52,6 +56,11 @@ nav li {
 nav a {
   color: var(--dark-orange);
   text-decoration: none;
+}
+
+.nav-user {
+  padding-right: 40px;
+  font-size: 1.75rem;
 }
 
 .registration {
@@ -145,6 +154,7 @@ form {
 
 .product-card {
   border: 2px solid var(--color-black);
+  text-align: center;
   height: 350px;
   width: 300px;
   margin: 50px 0;
@@ -222,4 +232,10 @@ form {
   height: 40px;
 }
 
+.product-list {
+  text-align: center;
+}
 
+.product-name {
+  margin: 0
+}

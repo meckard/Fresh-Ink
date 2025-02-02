@@ -29,22 +29,22 @@ export default function Products() {
 
   return (
     <div className="product-list">
-      <h2>Products</h2>
-      <div className="card-list">
+      <h1>Products</h1>
+      <section className="card-list">
         {products ? (
           products.map((product) => {
             return (
-              <div className="product-card">
+              <article className="product-card">
                 <img src={comingSoon} alt="product" />
-                <h3>{product.name}</h3>
+                <h2 className='product-name'>{product.name}</h2>
                 <p className="price">{`$${product.price}`}</p>
-              </div>
+              </article>
             )
           })
         ) : (
           <p>Loading...</p>
         )}
-      </div>
+      </section>
     </div>
   )
 }
