@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import comingSoon from '../Assets/Images/comingsoon.jpg'
+import { Link } from 'react-router-dom'
 
 export default function Products() {
   const [products, setProducts] = useState('')
@@ -34,11 +35,13 @@ export default function Products() {
         {products ? (
           products.map((product) => {
             return (
+              <Link to={`products?productId=${product.id}`}>  
               <article className="product-card">
                 <img src={comingSoon} alt="product" />
-                <h2 className='product-name'>{product.name}</h2>
+                <h2 className="product-name">{product.name}</h2>
                 <p className="price">{`$${product.price}`}</p>
               </article>
+              </Link>
             )
           })
         ) : (

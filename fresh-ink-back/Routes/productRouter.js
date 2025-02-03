@@ -23,7 +23,6 @@ module.exports = (app) => {
 
   router.get('/:productId', async (req, res, next) => {
     try {
-      const { productId } = req.params
       const statement = 'SELECT * FROM public.products WHERE id = $1'
       const values = [productId]
 
