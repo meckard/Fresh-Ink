@@ -33,15 +33,23 @@ export default function ProductPage() {
   }, [])
 
   return (
-    <section className='product-page'>
-      <h1 class className="product-page-name">
-        {productRes?.name}
-      </h1>
+    <section className="product-page">
       <div className="main-content">
-        <img className='product-image' src={comingSoon} alt="a coming soon sign" />
-        <aside className='price-box'>
-          <h2>{`$${productRes?.price}.00`}</h2>
+        <img
+          className="product-image"
+          src={comingSoon}
+          alt="a coming soon sign"
+        />
+        <aside className="price-box">
+          <h1 class className="product-page-name">
+            {productRes?.name}
+          </h1>
+          <h2 className='product-price'>{`$${productRes?.price}.00`}</h2>
+          <button className="add-to-cart-button">Add to cart</button>
         </aside>
+      </div>
+      <div className='info-panel'>
+        <p>some info here</p>
       </div>
     </section>
   )

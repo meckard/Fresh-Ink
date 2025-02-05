@@ -247,6 +247,8 @@ form {
   margin: 50px;
   height: 50%;
   width: 90%;
+  padding-bottom: 50px;
+  border-bottom: 2px solid var(--color-deep-red);
 }
 
 .product-page {
@@ -254,7 +256,8 @@ form {
 }
 
 .product-page-name {
-  margin: 50px;
+  font-size: 2.5rem;
+  margin: 0;
 }
 
 .product-image {
@@ -267,4 +270,32 @@ form {
   border: 3px solid var(--color-black);
   height: 100%;
   width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 2px 2px 5px var(--color-black);
+}
+
+.product-price{
+  color: var(--color-deep-red);
+  font-size: 2rem;
+}
+
+.add-to-cart-button {
+  width: 90%;
+  font-size: 1.5rem;
+  background-color: var(--color-black);
+  color: var(--color-metallic-gold);
+  font-weight: bold;
+  height: 15%;
+}
+
+.info-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  background-color: var(--color-slate-gray);
 }
