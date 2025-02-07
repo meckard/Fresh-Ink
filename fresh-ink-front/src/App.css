@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  font-family: 'Cardo'
+  font-family: 'Cardo';
 }
 
 nav {
@@ -51,6 +51,14 @@ nav li {
   font-family: 'Acme';
   margin: 20px;
   font-size: 1.75rem;
+  padding: 5px;
+}
+
+nav li:hover {
+  background-color: var(--color-black);
+  color: var(--color-deep-red);
+  padding: 5px;
+  border-radius: 10px;
 }
 
 nav a {
@@ -59,8 +67,16 @@ nav a {
 }
 
 .nav-user {
-  padding-right: 40px;
+  margin-right: 40px;
   font-size: 1.75rem;
+  padding: 5px;
+}
+
+.nav-user:hover {
+  background-color: var(--color-black);
+  color: var(--color-deep-red);
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .registration {
@@ -237,7 +253,7 @@ form {
 }
 
 .product-name {
-  margin: 0
+  margin: 0;
 }
 
 .main-content {
@@ -277,7 +293,7 @@ form {
   box-shadow: 2px 2px 5px var(--color-black);
 }
 
-.product-price{
+.product-price {
   color: var(--color-deep-red);
   font-size: 2rem;
 }
@@ -298,4 +314,21 @@ form {
   height: 50%;
   width: 100%;
   background-color: var(--color-slate-gray);
+  border-radius: 15px;
+  opacity: 85%;
+}
+
+.info-text {
+  opacity: 100%;
+  text-align: center;
+  width: 100%;
+
+  h3 {
+    font-weight: bold;
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 2rem;
+  }
 }

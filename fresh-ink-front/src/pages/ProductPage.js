@@ -8,7 +8,7 @@ export default function ProductPage() {
   const productRes = product[0]
   console.log(product)
 
-  const getProducts = async () => {
+  const getProduct = async () => {
     try {
       const response = await fetch(
         `https://localhost:3003/products/${idParam}`,
@@ -28,8 +28,12 @@ export default function ProductPage() {
     }
   }
 
+  const addToCart = async () => {
+
+  }
+
   useEffect(() => {
-    getProducts()
+    getProduct()
   }, [])
 
   return (
@@ -44,12 +48,15 @@ export default function ProductPage() {
           <h1 class className="product-page-name">
             {productRes?.name}
           </h1>
-          <h2 className='product-price'>{`$${productRes?.price}.00`}</h2>
+          <h2 className="product-price">{`$${productRes?.price}.00`}</h2>
           <button className="add-to-cart-button">Add to cart</button>
         </aside>
       </div>
-      <div className='info-panel'>
-        <p>some info here</p>
+      <div className="info-panel">
+        <span className='info-text'>
+          <h3>Details</h3>
+          <p>some info here</p>
+        </span>
       </div>
     </section>
   )
