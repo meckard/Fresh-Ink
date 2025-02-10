@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import comingSoon from '../Assets/Images/comingsoon.jpg'
+import { CartContext } from '../Components/cartContext'
 
 export default function ProductPage() {
   const [product, setProduct] = useState('')
   const searchParams = new URLSearchParams(window.location.search)
   const idParam = searchParams.get('productId')
   const productRes = product[0]
+  const { cart, setCart } = useContext(CartContext)
   console.log(product)
 
   const getProduct = async () => {
@@ -28,8 +30,17 @@ export default function ProductPage() {
     }
   }
 
-  const addToCart = async () => {
-
+  const addToCart = async (product) => {
+    const response = await fetch('https://localhost:3003/my_cart/add_item',
+        {
+            method: 'Post',
+            headers: {
+              'Content-Type': 'application/json', // Specify JSON format
+            },
+            body: product.id
+          },
+    )
+    const result = await response.json()
   }
 
   useEffect(() => {

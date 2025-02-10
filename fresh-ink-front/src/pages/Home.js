@@ -4,7 +4,7 @@ import { useEffect, useContext } from 'react'
 import { AuthContext } from '../Components/authContext';
 
 export default function Home() {
-  const { user, setUser, loading } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
