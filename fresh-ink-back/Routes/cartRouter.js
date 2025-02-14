@@ -8,16 +8,19 @@ module.exports = (app) => {
 
   router.get('/my_cart', async (req, res, next) => {
     try {
+      console.log(req.user)
       const cart = await cartUtil.findCartByUser(req.user.id)
+      console.log('cart', cart)
 
       if (!cart) {
         const result = await cartUtil.newCart(req.user.id)
 
+        console.log('result', result)
         return result
       }
 
-      const getItems = await util.findItemsByCart(cart.id)
-
+      const getItems = await cartUtil.findItemsByCart(cart.id)
+      console.log('get items', getItems)
       res.status(200).send(getItems)
     } catch (err) {
       next(err)
@@ -26,6 +29,7 @@ module.exports = (app) => {
 
   router.post('/my_cart/add_item', async (req, res, next) => {
     const { productId } = req.body
+    console.log('body', req.body)
 
     try {
       const cart = await cartUtil.findCartByUser(req.user.id)
@@ -37,6 +41,7 @@ module.exports = (app) => {
       }
 
       const addItem = await cartUtil.addItemToCart(productId, cart.id)
+      console.log('additem', addItem)
       res.status(200).send(addItem)
     } catch (err) {
       next(err)

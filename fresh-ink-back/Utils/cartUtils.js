@@ -36,10 +36,11 @@ const findItemsByCart = async (cartId) => {
 
 const addItemToCart = async (productId, cartId) => {
   const statement =
-    'INSERT INTO public.cart_item(product_id, cart_id) VALUES($1, $2)'
+    'INSERT INTO public.cart_item(product_id, cart_id) VALUES($1, $2) RETURNING *'
   const values = [productId, cartId]
 
-  const result = await db.query(statement, values)
+  const result = await db.query(statement, [productId, cartId])
+  console.log('additemresult', result)
 
   if (result.rows?.length) {
     return result.rows

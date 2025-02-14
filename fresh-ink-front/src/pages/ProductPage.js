@@ -9,6 +9,7 @@ export default function ProductPage() {
   const productRes = product[0]
   const { cart, setCart } = useContext(CartContext)
   console.log(product)
+  console.log(cart)
 
   const getProduct = async () => {
     try {
@@ -30,17 +31,20 @@ export default function ProductPage() {
     }
   }
 
-  const addToCart = async (product) => {
-    const response = await fetch('https://localhost:3003/my_cart/add_item',
+
+  const addToCart = async () => {
+    const response = await fetch('https://localhost:3003/cart/my_cart/add_item',
         {
             method: 'Post',
             headers: {
               'Content-Type': 'application/json', // Specify JSON format
             },
-            body: product.id
+            body:JSON.stringify({ productId: product[0].id }),
+            credentials: 'include'
           },
     )
-    const result = await response.json()
+    const result = await response.text()
+    console.log(result)
   }
 
   useEffect(() => {
@@ -60,7 +64,7 @@ export default function ProductPage() {
             {productRes?.name}
           </h1>
           <h2 className="product-price">{`$${productRes?.price}.00`}</h2>
-          <button className="add-to-cart-button">Add to cart</button>
+          <button onClick={addToCart} className="add-to-cart-button">Add to cart</button>
         </aside>
       </div>
       <div className="info-panel">

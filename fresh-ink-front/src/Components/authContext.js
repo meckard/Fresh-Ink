@@ -18,13 +18,9 @@ export const AuthProvider = ({ children }) => {
         console.log('auth context', response)
         if (response.ok) {
           const data = await response.json()
-          console.log(data.user)
           setUser(data.user) // Set authenticated user
-          console.log('yeh')
-          console.log(user)
         } else {
           setUser(null) // User not authenticated
-          console.log('naw')
         }
       } catch (error) {
         console.error('Error checking auth status:', error)
@@ -38,8 +34,8 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    console.log('User updated:', user); // Log when user changes
-  }, [user]);
+    console.log('User updated:', user) // Log when user changes
+  }, [user])
 
   // AuthContext provides the user state and setUser method
   return (
