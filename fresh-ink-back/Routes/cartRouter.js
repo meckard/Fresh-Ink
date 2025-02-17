@@ -42,7 +42,7 @@ module.exports = (app) => {
 
       const addItem = await cartUtil.addItemToCart(productId, cart.id)
       console.log('additem', addItem)
-      res.status(200).send(addItem)
+      res.status(200).send(addItem[0])
     } catch (err) {
       next(err)
     }

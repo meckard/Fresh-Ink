@@ -43,8 +43,13 @@ export default function ProductPage() {
             credentials: 'include'
           },
     )
-    const result = await response.text()
+    const result = await response.json()
     console.log(result)
+    setCart(prevCart => ({
+      products: [...prevCart.products, result.product_id], // Add new product to array
+      itemsInCart: prevCart.itemsInCart + 1, // Increment count correctly
+      id: result.cart_id
+    }));
   }
 
   useEffect(() => {

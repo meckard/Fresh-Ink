@@ -6,7 +6,7 @@ export const CartContext = createContext()
 // AuthProvider Component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({
-    products: [null],
+    products: [],
     itemsInCart: 0,
     id: null,
   }) // Stores user data
