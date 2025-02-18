@@ -70,6 +70,41 @@ nav a {
   margin-right: 40px;
   font-size: 1.75rem;
   padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+
+}
+
+.nav-logout {
+  margin-left: 25px;
+  background-color: var(--color-black);
+  color: var(--color-deep-red);
+  font-size: 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.nav-cart-number {
+  background-color: var(--color-deep-red);
+  color: var(--color-off-white);
+  font-size: 1.5rem;
+  padding: 10px;
+  width: 50%;
+  border-radius: 50%;
+
+  p {
+    margin: 0
+  }
+}
+
+.nav-cart {
+  height: 50px;
+  width: auto;
+  display: flex;
+  text-align: center;
 }
 
 .nav-user:hover {
