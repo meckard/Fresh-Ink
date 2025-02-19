@@ -33,9 +33,9 @@ const Header = () => {
           </li>
         </ul>
         <div className="nav-user">
-          <div>
+          <div className='nav-profile'>
             {user ? (
-              <Link to="/profile">Profile</Link>
+              <p>Profile</p>
             ) : (
               <Link to="/login">Login</Link>
             )}

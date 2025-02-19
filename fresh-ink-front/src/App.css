@@ -74,14 +74,24 @@ nav a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 25%;
+  width: 30%;
+}
 
+.nav-profile {
+  border-right: 2px solid var(--color-black);
+  padding-right: 30px;
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 }
 
 .nav-logout {
   margin-left: 25px;
   background-color: var(--color-black);
-  color: var(--color-deep-red);
+  color: var(--color-metallic-gold);
   font-size: 1.5rem;
   padding: 10px;
   border-radius: 10px;
@@ -90,13 +100,14 @@ nav a {
 .nav-cart-number {
   background-color: var(--color-deep-red);
   color: var(--color-off-white);
-  font-size: 1.5rem;
-  padding: 10px;
-  width: 50%;
+  font-size: 1rem;
+  padding: 5px;
+  height: 40%;
+  width: 40%;
   border-radius: 50%;
 
   p {
-    margin: 0
+    margin: 0;
   }
 }
 
@@ -105,14 +116,20 @@ nav a {
   width: auto;
   display: flex;
   text-align: center;
+  align-items: center;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 
-.nav-user:hover {
+/* .nav-user:hover {
   background-color: var(--color-black);
   color: var(--color-deep-red);
   padding: 5px;
   border-radius: 10px;
-}
+} */
 
 .registration {
   display: flex;
@@ -201,6 +218,12 @@ form {
 .card-list {
   display: flex;
   justify-content: space-evenly;
+
+  a {
+    color: var(--color-black);
+    text-decoration: none;
+  }
+
 }
 
 .product-card {
@@ -210,6 +233,12 @@ form {
   width: 300px;
   margin: 50px 0;
   box-shadow: 2px 2px 5px var(--color-black);
+}
+
+.product-card:hover {
+    background-color: var(--color-black);
+    color: var(--color-metallic-gold);
+    box-shadow: none;
 }
 
 .product-card img {
