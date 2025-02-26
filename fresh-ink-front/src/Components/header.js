@@ -9,7 +9,8 @@ const Header = () => {
   const { cart } = useContext(CartContext)
   const logout = async () => {
     const response = await fetch('https://localhost:3003/auth/logout', {
-      method: 'POST',
+      method: 'POST', // POST request
+      credentials: 'include',
     })
 
     if (response) {
@@ -17,6 +18,18 @@ const Header = () => {
       setUser(null)
     }
   }
+
+  console.log(user)
+
+  const checkSession = async () => {
+    const res = await fetch('https://localhost:3003/auth/check-session', {
+      credentials: 'include',
+    })
+    const data = await res.json()
+    console.log('Session Check:', data)
+  }
+
+  checkSession()
 
   return (
     <header>
@@ -33,12 +46,8 @@ const Header = () => {
           </li>
         </ul>
         <div className="nav-user">
-          <div className='nav-profile'>
-            {user ? (
-              <p>Profile</p>
-            ) : (
-              <Link to="/login">Login</Link>
-            )}
+          <div className="nav-profile">
+            {user ? <p>Profile</p> : <Link to="/login">Login</Link>}
             {user ? (
               <button className="nav-logout" onClick={logout}>
                 Logout

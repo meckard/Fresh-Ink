@@ -72,7 +72,7 @@ nav a {
   padding: 5px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
   width: 30%;
 }
@@ -298,12 +298,23 @@ form {
 }
 
 .facebook-button {
-  background-color: blue;
+  background-color: white;
+  color: #1877F2;
+  text-decoration: none;
   height: 40px;
   width: 200px;
   font-weight: bold;
-  box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
+  border: 2px solid #1877F2;
+  border-radius: 5px;
   margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.facebook-icon {
+  height: 16px;
+  width: 16px;
 }
 
 #google-button {

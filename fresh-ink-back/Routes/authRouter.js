@@ -49,26 +49,31 @@ module.exports = (app, passport) => {
     }
   })
 
-  router.post('/logout', (req, res) => {
-    req.logout((err) => {
+  router.post('/logout', function (req, res, next) {
+    console.log('logout user', req.user)
+    //I had to include the user before the callback when calling the logout function
+    req.logOut(req.user, function (err) {
+      console.log('logout callback called')
       if (err) {
-        return res.status(500).json({ message: 'Error logging out' })
+        console.log('error', err)
+        return next(err)
       }
-      res.json({ message: 'Logged out successfully' })
+      return res.status(200).json({ message: "Logged out successfully" });
+
+      res.redirect('https://localhost:3000/')
     })
+  })
+
+  router.get('/check-session', (req, res) => {
+    res.json({ user: req.user || null })
   })
 
   //facebook login route
   router.get('/facebook', (req, res, next) => {
     console.log('FBSession:', req.session) // Check session data
     console.log('FBUser:', req.user)
-    /* const redirectUri = 'https://localhost:3003/auth/facebook/callback' */
-    passport.authenticate(
-      'facebook' /* , {
-      scope: ['email'],
-      callbackURL: redirectUri, 
-    } */,
-    )(req, res, next)
+
+    passport.authenticate('facebook')(req, res, next)
   })
 
   //facebook callback route

@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import GoogleSignInButton from '../Components/googleSignInButton'
 import FacebookSignInButton from '../Components/facebookSignInButton'
+import { AuthContext } from '../Components/authContext'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { user, setUser} = useContext(AuthContext)
   let navigate = useNavigate()
 
   const emailField = (e) => {
@@ -15,7 +17,7 @@ export default function Login() {
   const passwordField = (e) => {
     setPassword(e.target.value)
   }
-
+/* 
   const sensitiveTest = async () => {
     const response = await fetch('https://localhost:3003/auth/status', {
       headers: {
@@ -32,7 +34,7 @@ export default function Login() {
     } else {
       console.log('naw')
     }
-  }
+  } */
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -56,6 +58,8 @@ export default function Login() {
       console.log('result', result)
       if (result) {
         console.log('Success:', result)
+        setUser(result)
+
         // navigate('/')
       }
     } catch (error) {
@@ -105,7 +109,6 @@ export default function Login() {
       <div className="social-login">
         <FacebookSignInButton />
         <GoogleSignInButton />
-        <button onClick={sensitiveTest} />
       </div>
     </div>
   )
