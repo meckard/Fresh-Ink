@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
 import GoogleSignInButton from '../Components/googleSignInButton'
 import FacebookSignInButton from '../Components/facebookSignInButton'
 import { AuthContext } from '../Components/authContext'
@@ -7,8 +6,7 @@ import { AuthContext } from '../Components/authContext'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { user, setUser} = useContext(AuthContext)
-  let navigate = useNavigate()
+  const { setUser} = useContext(AuthContext)
 
   const emailField = (e) => {
     setEmail(e.target.value)
@@ -55,9 +53,7 @@ export default function Login() {
       })
 
       const result = await response.json() // Parse JSON response from server
-      console.log('result', result)
       if (result) {
-        console.log('Success:', result)
         setUser(result)
 
         // navigate('/')

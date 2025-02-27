@@ -12,10 +12,10 @@ module.exports = (app) => {
   }));
   
   // Debugging to check middleware
-  app.use((req, res, next) => {
+  /* app.use((req, res, next) => {
     console.log('CORS Middleware Applied');
     next();
-  });
+  }); */
   
   // Middleware for parsing JSON and URL-encoded data
   app.use(bodyParser.json());

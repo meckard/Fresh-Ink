@@ -28,9 +28,7 @@ module.exports = (app, passport) => {
         const response = await util.login(email, password)
         if (req.isAuthenticated) {
           response.authType = 'local'
-          console.log('response', response)
           res.status(200).send(response)
-          console.log('Logged In!')
         }
       } catch (err) {
         console.log(err)
@@ -39,10 +37,7 @@ module.exports = (app, passport) => {
   )
 
   router.get('/status', (req, res) => {
-    console.log('Session:', req.session) // Check session details
-    console.log('User:', req.user)
     if (req.isAuthenticated()) {
-      console.log('am authed')
       res.json({ user: req.user })
     } else {
       res.status(401).json({ message: 'Unauthorized' })
@@ -50,12 +45,9 @@ module.exports = (app, passport) => {
   })
 
   router.post('/logout', function (req, res, next) {
-    console.log('logout user', req.user)
     //I had to include the user before the callback when calling the logout function
     req.logOut(req.user, function (err) {
-      console.log('logout callback called')
       if (err) {
-        console.log('error', err)
         return next(err)
       }
       return res.status(200).json({ message: "Logged out successfully" });
@@ -70,9 +62,6 @@ module.exports = (app, passport) => {
 
   //facebook login route
   router.get('/facebook', (req, res, next) => {
-    console.log('FBSession:', req.session) // Check session data
-    console.log('FBUser:', req.user)
-
     passport.authenticate('facebook')(req, res, next)
   })
 
@@ -83,7 +72,6 @@ module.exports = (app, passport) => {
     async (req, res) => {
       await util.facebookLogin(req.user.email, req.user.id)
       if (req.isAuthenticated) {
-        console.log('session')
         res.redirect('https://localhost:3000/')
       } else {
         console.log('naw')
@@ -105,10 +93,8 @@ module.exports = (app, passport) => {
     '/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     async (req, res) => {
-      console.log('callback user', req.user)
       await util.googleLogin(req.user.email, req.user.id)
       if (req.isAuthenticated) {
-        console.log('session')
         res.redirect('https://localhost:3000/')
       } else {
         console.log('naw')
@@ -129,11 +115,9 @@ module.exports = (app, passport) => {
         }
 
         if (req.isAuthenticated) {
-          console.log('session')
           res.redirect('https://localhost:3000/')
         }
       } catch (err) {
-        console.error('Error verifying token:', err)
         res.status(400).json({ error: 'Invalid token' })
       }
     },

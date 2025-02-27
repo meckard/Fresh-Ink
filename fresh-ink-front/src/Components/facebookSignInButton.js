@@ -1,10 +1,7 @@
 import React from 'react'
 import facebookIcon from '../Assets/Facebook_Logo_Primary.png'
-import { AuthContext } from './authContext'
-import { useContext } from 'react'
 
 export default function FacebookSignInButton() {
-  const { user, setUser} = useContext(AuthContext)
 
   return (
     <a className='facebook-button' href="https://localhost:3003/auth/facebook">

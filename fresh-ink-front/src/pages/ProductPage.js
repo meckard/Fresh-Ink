@@ -8,8 +8,6 @@ export default function ProductPage() {
   const idParam = searchParams.get('productId')
   const productRes = product[0]
   const { cart, setCart } = useContext(CartContext)
-  console.log(product)
-  console.log(cart)
 
   const getProduct = async () => {
     try {
@@ -24,7 +22,6 @@ export default function ProductPage() {
       )
 
       const result = await response.json()
-      console.log('Success:', result)
       setProduct(result)
     } catch (error) {
       console.error('Error:', error)
@@ -44,7 +41,6 @@ export default function ProductPage() {
           },
     )
     const result = await response.json()
-    console.log(result)
     setCart(prevCart => ({
       products: [...prevCart.products, result.product_id], // Add new product to array
       itemsInCart: prevCart.itemsInCart + 1, // Increment count correctly

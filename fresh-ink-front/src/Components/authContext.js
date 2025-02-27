@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch('https://localhost:3003/auth/status', {
           credentials: 'include',
         }) // Include session cookies
-        console.log('auth context', response)
         if (response.ok) {
           const data = await response.json()
           setUser(data.user) // Set authenticated user
@@ -23,7 +22,6 @@ export const AuthProvider = ({ children }) => {
           setUser(null) // User not authenticated
         }
       } catch (error) {
-        console.error('Error checking auth status:', error)
         setUser(null)
       } finally {
         setLoading(false) // Stop loading
@@ -33,9 +31,9 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus()
   }, [])
 
-  useEffect(() => {
+ /*  useEffect(() => {
     console.log('User updated:', user) // Log when user changes
-  }, [user])
+  }, [user]) */
 
   // AuthContext provides the user state and setUser method
   return (

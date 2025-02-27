@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
       })
       if (response.ok) {
         const data = await response
-        console.log(data)
+        return data
       }
     }
 
@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
 
   // AuthContext provides the user state and setUser method
   return (
-    <CartContext.Provider value={{ cart, setCart, loading }}>
+    <CartContext.Provider value={{ cart, setCart, loading, setLoading }}>
       {children}
     </CartContext.Provider>
   )
