@@ -39,8 +39,13 @@ export default function Checkout() {
 
   console.log(cart)
   return (
-    <div>
-      <h1>Checkout</h1>
+    <div className='checkout'>
+      <h1 className='checkout-h1'>Checkout</h1>
+      <div className='labels'>
+        <h2>Name</h2>
+        <h2>Price</h2>
+      </div>
+      <div className='line-items'>
       { cartItems ? (
         cartItems.map((item) => {
           return (
@@ -53,6 +58,7 @@ export default function Checkout() {
       ) : (
         <p>no item in cart</p>
       ) }
+    </div>
     </div>
   )
 }
