@@ -420,6 +420,7 @@ form {
   background-color: var(--color-metallic-gold);
   box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
   font-weight: bold;
+  font-size: 1.2em;
 }
 
 .labels {
@@ -436,4 +437,17 @@ form {
 .line-item:nth-child(even) {
   background-color: var(--color-deep-red);
   color: var(--color-metallic-gold);
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin:  30px;
+}
+
+.total-label {
+  margin-right: 40px;
 }
