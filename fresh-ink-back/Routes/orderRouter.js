@@ -15,6 +15,14 @@ module.exports = (app) => {
     }
   })
 
+  /* router.post('/new_order', async (req, res, next) => {
+    
+
+    try{
+      const response = await util.createOrder()
+    }
+  }) */
+
   router.get('/my_orders', async (req, res, next) => {
     const { id } = req.user
 

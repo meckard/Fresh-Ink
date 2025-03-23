@@ -429,9 +429,8 @@ form {
   justify-content: space-evenly;
 }
 
-.line-item:nth-child(-n +1) {
+.line-item:nth-child(-n + 1) {
   border-top: 2px solid black;
-  
 }
 
 .line-item:nth-child(even) {
@@ -445,9 +444,52 @@ form {
   justify-content: space-evenly;
   font-weight: bold;
   font-size: 1.5em;
-  margin:  30px;
+  margin: 30px;
 }
 
 .total-label {
   margin-right: 40px;
+}
+
+.checkout-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkout-button {
+  margin: 30px 0;
+  background-color: var(--color-black);
+  color: var(--color-metallic-gold);
+  font-weight: bold;
+  font-size: 1.25em;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.checkout-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  color: var(--color-metallic-gold);
+
+  form {
+    padding: 40px;
+    width: 75%;
+  }
+}
+
+.checkout-input {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 45%;
+  font-weight: bold;
+  color: var(--color-metallic-gold)
+}
+
+.email-name {
+  display: flex;
+  flex-wrap: wrap;
 }

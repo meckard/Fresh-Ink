@@ -1,5 +1,6 @@
 import { CartContext } from '../Components/cartContext'
 import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Checkout() {
   const { cart, setCart } = useContext(CartContext)
@@ -37,12 +38,12 @@ export default function Checkout() {
 
   const getTotal = async () => {
     for (let i = 0; i < cartItems.length; i++) {
-     total += cartItems[i].price
+      total += cartItems[i].price
     }
   }
 
-  if(cartItems) {
-  getTotal()
+  if (cartItems) {
+    getTotal()
   }
 
   console.log(cartItems)
@@ -70,8 +71,13 @@ export default function Checkout() {
         )}
       </div>
       <div className="total">
-        <div className='total-label'>Total</div>
-        <div className='total-number'>{total}</div>
+        <div className="total-label">Total</div>
+        <div className="total-number">{total}</div>
+      </div>
+      <div className='checkout-link'>
+        <Link to="/checkout/info">
+          <button className="checkout-button">Checkout</button>
+        </Link>
       </div>
     </div>
   )
