@@ -3,9 +3,9 @@ export default function CheckoutForm() {
     <div className="checkout-form">
       <form>
         <div className="inputs">
-          <h2>Let's get that info</h2>
+          <h1>Let's get that info</h1>
           <div className="email-name">
-            <div className="checkout-input">
+            <div className="checkout-input email-input">
               <label for="email">Email</label>
               <input
                 className="email"
@@ -45,59 +45,61 @@ export default function CheckoutForm() {
               />
             </div>
           </div>
-          <div className="checkout-input">
-            <label for="streetaddress">Street Address</label>
-            <input
-              className="street-address"
-              type="text"
-              id="street-address"
-              name="streetaddress"
-              required
-              minLength="5"
-              maxLength="20"
-              size="22"
-            />
+          <div className="address-info">
+            <div className="checkout-input">
+              <label for="streetaddress">Street Address</label>
+              <input
+                className="street-address"
+                type="text"
+                id="street-address"
+                name="streetaddress"
+                required
+                minLength="5"
+                maxLength="20"
+                size="22"
+              />
+            </div>
+            <div className="checkout-input">
+              <label for="city">City</label>
+              <input
+                className="city"
+                type="text"
+                id="city"
+                name="city"
+                required
+                minLength="5"
+                maxLength="20"
+                size="22"
+              />
+            </div>
+            <div className="checkout-input">
+              <label for="state">State</label>
+              <input
+                className="state"
+                type="text"
+                id="state"
+                name="state"
+                required
+                minLength="2"
+                maxLength="2"
+                size="22"
+              />
+            </div>
+            <div className="checkout-input">
+              <label for="zipcode">Zipcode</label>
+              <input
+                className="zipcode"
+                type="number"
+                id="zipcode"
+                name="zipcode"
+                required
+                minLength="5"
+                maxLength="5"
+                size="22"
+              />
+            </div>
           </div>
-          <div className="checkout-input">
-            <label for="city">City</label>
-            <input
-              className="city"
-              type="text"
-              id="city"
-              name="city"
-              required
-              minLength="5"
-              maxLength="20"
-              size="22"
-            />
-          </div>
-          <div className="checkout-input">
-            <label for="state">State</label>
-            <input
-              className="state"
-              type="text"
-              id="state"
-              name="state"
-              required
-              minLength="2"
-              maxLength="2"
-              size="22"
-            />
-          </div>
-          <div className="checkout-input">
-            <label for="zipcode">Zipcode</label>
-            <input
-              className="zipcode"
-              type="number"
-              id="zipcode"
-              name="zipcode"
-              required
-              minLength="5"
-              maxLength="5"
-              size="22"
-            />
-          </div>
-          <input type="submit" className="submit" value="Just take my money" />
+          <input type="submit" className="submit-input" value="Just take my money" />
         </div>
       </form>
     </div>
