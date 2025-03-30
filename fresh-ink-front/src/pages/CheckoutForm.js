@@ -1,7 +1,32 @@
 export default function CheckoutForm() {
+  const checkoutForm = document.forms.checkoutForm
+  console.log(checkoutForm)
+  const formData = new FormData(checkoutForm)
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    console.log(formData.get("first name"))
+    console.log(Object.entries.formData)
+    try {
+      const response = await fetch('https://localhost:3003/orders/new_order', {
+        method: 'POST', // POST request
+        headers: {
+          'Content-Type': 'application/json', // Specify JSON format
+        },
+        body: JSON.stringify(Object.fromEntries(formData)), // Convert data to JSON string
+      })
+
+      const result = await response // Parse JSON response from server
+      console.log('Success:', result)
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
   return (
     <div className="checkout-form">
-      <form>
+      <form id="checkoutForm" onSubmit={handleSubmit}>
         <div className="inputs">
           <h1>Let's get that info</h1>
           <div className="email-name">
@@ -99,7 +124,11 @@ export default function CheckoutForm() {
               />
             </div>
           </div>
-          <input type="submit" className="submit-input" value="Just take my money" />
+          <input
+            type="submit"
+            className="submit-input"
+            value="Just take my money"
+          />
         </div>
       </form>
     </div>

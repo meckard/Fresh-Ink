@@ -41,9 +41,10 @@ const getOrderById = async (id) => {
 }
 
 const createOrder = async (total, userId) => {
-  const statement = `INSERT INTO public.order (total, user_id) VALUES (${total}, ${userId}) RETURNING *`
+  const statement = `INSERT INTO public.order (total, user_id) VALUES ($1, $2) RETURNING *`
+  const values = [total, userId]
 
-  const response = await db.query(statement, [])
+  const response = await db.query(statement, values)
 
   if (response.rows?.length) {
     return response.rows
