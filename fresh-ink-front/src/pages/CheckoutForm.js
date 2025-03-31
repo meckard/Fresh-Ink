@@ -6,8 +6,8 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(formData.get("first name"))
-    console.log(Object.entries.formData)
+    console.log(formData.get("lastname"))
+    console.log(Object.fromEntries(formData))
     try {
       const response = await fetch('https://localhost:3003/orders/new_order', {
         method: 'POST', // POST request
