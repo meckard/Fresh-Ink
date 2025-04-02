@@ -17,12 +17,10 @@ module.exports = (app) => {
   app.use(passport.session())
 
   passport.serializeUser((user, done) => {
-    console.log('serial:', user)
     done(null, { id: user.id, authType: user.authType, email: user.email })
   })
 
   passport.deserializeUser((data, done) => {
-    console.log('deserial:', data)
     const { id, authType, email } = data
 
     if (authType === 'google') {
@@ -32,13 +30,11 @@ module.exports = (app) => {
         .catch(done)
     } else if (authType === 'facebook') {
       // Fetch the user from the database based on Facebook ID
-      console.log('facebook deser')
       findUserByFacebookId(id)
         .then((user) => done(null, user))
         .catch(done)
     } else if (authType === 'local') {
       // Fetch the user from the database based on Local ID
-      console.log('localdeser')
       findUserByEmail(email)
         .then((user) => done(null, user))
         .catch(done)
@@ -54,7 +50,6 @@ module.exports = (app) => {
         try {
           const user = await util.login(email, password)
           user.authType = 'local'
-          console.log(user)
           return done(null, user)
         } catch (err) {
           return done(err)
@@ -79,7 +74,6 @@ module.exports = (app) => {
           email: profile.emails[0].value,
           authType: 'facebook',
         }
-        console.log('strategy user', user)
         done(null, user)
       },
     ),
@@ -93,7 +87,6 @@ module.exports = (app) => {
         callbackURL: 'https://localhost:3003/auth/google/callback',
       },
       (issuer, profile, done) => {
-        console.log('stratpro',profile)
         const user = {
           id: profile.id,
           name: profile.displayName,

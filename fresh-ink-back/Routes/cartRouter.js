@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const cartUtil = require('../Utils/cartUtils')
 const orderUtil = require('../Utils/orderUtils')
+const productUtil = require('../Utils/productUtils')
 
 module.exports = (app) => {
   app.use('/cart', router)
@@ -29,10 +30,11 @@ module.exports = (app) => {
 
   router.post('/my_cart/add_item', async (req, res, next) => {
     const { productId } = req.body
-    console.log('body', req.body)
 
     try {
       const cart = await cartUtil.findCartByUser(req.user.id)
+      const product = await productUtil.getProductById(productId)
+      console.log("product", product.rows[0].price)
 
       if (!cart) {
         const result = await cartUtil.newCart(req.user.id)
@@ -40,7 +42,11 @@ module.exports = (app) => {
         return result
       }
 
-      const addItem = await cartUtil.addItemToCart(productId, cart.id)
+      const addItem = await cartUtil.addItemToCart(
+        productId,
+        cart.id,
+        product.rows[0].price,
+      )
       console.log('additem', addItem)
       res.status(200).send(addItem[0])
     } catch (err) {

@@ -9,6 +9,8 @@ export default function ProductPage() {
   const productRes = product[0]
   const { cart, setCart } = useContext(CartContext)
 
+  console.log(cart)
+
   const getProduct = async () => {
     try {
       const response = await fetch(
@@ -28,24 +30,26 @@ export default function ProductPage() {
     }
   }
 
-
   const addToCart = async () => {
-    const response = await fetch('https://localhost:3003/cart/my_cart/add_item',
-        {
-            method: 'Post',
-            headers: {
-              'Content-Type': 'application/json', // Specify JSON format
-            },
-            body:JSON.stringify({ productId: product[0].id }),
-            credentials: 'include'
-          },
+    const response = await fetch(
+      'https://localhost:3003/cart/my_cart/add_item',
+      {
+        method: 'Post',
+        headers: {
+          'Content-Type': 'application/json', // Specify JSON format
+        },
+        body: JSON.stringify({ productId: product[0].id }),
+        credentials: 'include',
+      },
     )
     const result = await response.json()
-    setCart(prevCart => ({
+    console.log(result)
+    setCart((prevCart) => ({
       products: [...prevCart.products, result.product_id], // Add new product to array
       itemsInCart: prevCart.itemsInCart + 1, // Increment count correctly
-      id: result.cart_id
-    }));
+      id: result.cart_id,
+      total: prevCart.total + result.price
+    }))
   }
 
   useEffect(() => {
@@ -65,11 +69,13 @@ export default function ProductPage() {
             {productRes?.name}
           </h1>
           <h2 className="product-price">{`$${productRes?.price}.00`}</h2>
-          <button onClick={addToCart} className="add-to-cart-button">Add to cart</button>
+          <button onClick={addToCart} className="add-to-cart-button">
+            Add to cart
+          </button>
         </aside>
       </div>
       <div className="info-panel">
-        <span className='info-text'>
+        <span className="info-text">
           <h3>Details</h3>
           <p>some info here</p>
         </span>

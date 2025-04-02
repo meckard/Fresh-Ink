@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../queries')
 const cors = require('cors')
+const productUtils = require('../Utils/productUtils')
 
 module.exports = (app) => {
   app.use(cors())
@@ -9,26 +9,21 @@ module.exports = (app) => {
 
   router.get('/', async (req, res, next) => {
     try {
-      const statement = 'SELECT * FROM public.products'
-      const values = []
+      const result = await productUtils.getAllProducts()
+      console.log("router result", result)
 
-      const result = await db.query(statement, values)
-      console.log(result.rows)
-
-      res.status(200).send(result.rows)
+      res.status(200).send(result)
     } catch (err) {
       next(err)
     }
   })
 
   router.get('/:productId', async (req, res, next) => {
+    const {productId} = req.params
+    console.log("product id", productId)
     try {
-      const { productId } = req.params
-      console.log(productId)
-      const statement = 'SELECT * FROM public.products WHERE id = $1'
-      const values = [productId]
-
-      const result = await db.query(statement, values)
+      const result = await productUtils.getProductById(productId)
+      console.log("id result", result.rows)
 
       res.status(200).send(result.rows)
     } catch (err) {

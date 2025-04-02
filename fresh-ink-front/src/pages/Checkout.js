@@ -34,6 +34,14 @@ export default function Checkout() {
     }
 
     getCartItems()
+
+    if (cartItems) {
+      getTotal()
+      setCart({
+        total: total
+      })
+    }
+    
   }, [])
 
   const getTotal = async () => {
@@ -42,9 +50,7 @@ export default function Checkout() {
     }
   }
 
-  if (cartItems) {
-    getTotal()
-  }
+  
 
   console.log(cartItems)
 
@@ -72,9 +78,9 @@ export default function Checkout() {
       </div>
       <div className="total">
         <div className="total-label">Total</div>
-        <div className="total-number">{total}</div>
+        <div className="total-number">{cart.total}</div>
       </div>
-      <div className='checkout-link'>
+      <div className="checkout-link">
         <Link to="/checkout/info">
           <button className="checkout-button">Checkout</button>
         </Link>
