@@ -1,12 +1,18 @@
+import { useContext } from 'react'
+import { CartContext } from '../Components/cartContext'
+
 export default function CheckoutForm() {
-  const checkoutForm = document.forms.checkoutForm
-  console.log(checkoutForm)
-  const formData = new FormData(checkoutForm)
-  
+  const { cart } = useContext(CartContext)
+  console.log(cart.total)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(formData.get("lastname"))
+    const checkoutForm = document.forms.checkoutForm
+    console.log(checkoutForm)
+    const formData = new FormData(checkoutForm)
+    console.log(formData)
+
+    console.log(formData.get('lastname'))
     console.log(Object.fromEntries(formData))
     try {
       const response = await fetch('https://localhost:3003/orders/new_order', {
@@ -49,7 +55,7 @@ export default function CheckoutForm() {
                 className="first-name"
                 type="text"
                 id="first-name"
-                name="first name"
+                name="firstname"
                 required
                 minLength="5"
                 maxLength="20"
@@ -124,6 +130,20 @@ export default function CheckoutForm() {
               />
             </div>
           </div>
+          <div className="checkout-input total-input">
+              <label for="total">Total</label>
+              <input
+                className="total"
+                type="number"
+                id="total"
+                name="total"
+                value={cart.total}
+                required
+                minLength="1"
+                maxLength="20"
+                size="22"
+              />
+            </div>
           <input
             type="submit"
             className="submit-input"

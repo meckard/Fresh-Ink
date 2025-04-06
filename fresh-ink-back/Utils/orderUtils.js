@@ -40,9 +40,11 @@ const getOrderById = async (id) => {
   }
 }
 
-const createOrder = async (total, userId) => {
-  const statement = `INSERT INTO public.order (total, user_id) VALUES ($1, $2) RETURNING *`
-  const values = [total, userId]
+const createOrder = async (orderInfo, userId) => {
+  const { total, email, firstname, lastname, streetaddress, city, state, zipcode } =
+    orderInfo
+  const statement = `INSERT INTO public.order (total, user_id, email, first_name, last_name, address, city, state, zipcode) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`
+  const values = [total, userId, email, firstname, lastname, streetaddress, city, state, zipcode]
 
   const response = await db.query(statement, values)
 
