@@ -5,7 +5,6 @@ const getAllProducts = async () => {
   const values = []
 
   const result = await db.query(statement, values)
-  console.log('get all products', result.rows)
   return result.rows
 }
 

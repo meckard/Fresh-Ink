@@ -18,7 +18,7 @@ const Header = () => {
   }
 
 
-  /* const checkSession = async () => {
+  const checkSession = async () => {
     const res = await fetch('https://localhost:3003/auth/check-session', {
       credentials: 'include',
     })
@@ -26,7 +26,7 @@ const Header = () => {
     console.log('Session Check:', data)
   }
 
-  checkSession() */
+  checkSession()
 
   return (
     <header>

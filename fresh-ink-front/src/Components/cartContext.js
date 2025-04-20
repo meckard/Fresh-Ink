@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
         credentials: 'include'
       })
       if (response.ok) {
-        const data = await response
+        const data = await response.json()
         return data
       }
     }

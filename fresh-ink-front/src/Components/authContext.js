@@ -31,10 +31,6 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus()
   }, [])
 
- /*  useEffect(() => {
-    console.log('User updated:', user) // Log when user changes
-  }, [user]) */
-
   // AuthContext provides the user state and setUser method
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>

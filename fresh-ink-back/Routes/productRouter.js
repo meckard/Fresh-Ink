@@ -10,7 +10,6 @@ module.exports = (app) => {
   router.get('/', async (req, res, next) => {
     try {
       const result = await productUtils.getAllProducts()
-      console.log("router result", result)
 
       res.status(200).send(result)
     } catch (err) {
@@ -20,10 +19,8 @@ module.exports = (app) => {
 
   router.get('/:productId', async (req, res, next) => {
     const {productId} = req.params
-    console.log("product id", productId)
     try {
       const result = await productUtils.getProductById(productId)
-      console.log("id result", result.rows)
 
       res.status(200).send(result.rows)
     } catch (err) {

@@ -9,19 +9,15 @@ module.exports = (app) => {
 
   router.get('/my_cart', async (req, res, next) => {
     try {
-      console.log(req.user)
       const cart = await cartUtil.findCartByUser(req.user.id)
-      console.log('cart', cart)
 
       if (!cart) {
         const result = await cartUtil.newCart(req.user.id)
 
-        console.log('result', result)
         return result
       }
 
       const getItems = await cartUtil.findItemsByCart(cart.id)
-      console.log('get items', getItems)
       res.status(200).send(getItems)
     } catch (err) {
       next(err)
@@ -34,7 +30,6 @@ module.exports = (app) => {
     try {
       const cart = await cartUtil.findCartByUser(req.user.id)
       const product = await productUtil.getProductById(productId)
-      console.log("product", product.rows[0].price)
 
       if (!cart) {
         const result = await cartUtil.newCart(req.user.id)
@@ -47,7 +42,6 @@ module.exports = (app) => {
         cart.id,
         product.rows[0].price,
       )
-      console.log('additem', addItem)
       res.status(200).send(addItem[0])
     } catch (err) {
       next(err)
