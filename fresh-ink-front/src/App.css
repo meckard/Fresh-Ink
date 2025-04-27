@@ -532,3 +532,36 @@ form {
 .total-input {
   display: none;
 }
+
+.payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 50px 50px 50px;
+}
+
+.payment-container {
+  width:75%;
+  justify-items: center;
+
+}
+
+#stripe-component {
+  width: 75%;
+  margin: 50px 0;
+}
+
+.payment-return {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px;
+  border: 2px solid var(--color-black);
+  border-radius: 10px;
+  color: var(--color-metallic-gold);
+  background-color: var(--color-black);
+  font-weight: bold;
+  width: 70%;
+}
