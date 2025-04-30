@@ -9,7 +9,8 @@ export const CartProvider = ({ children }) => {
     products: [],
     itemsInCart: 0,
     id: null,
-    total: 0
+    total: 0,
+    orderId: null
   }) // Stores user data
   const [loading, setLoading] = useState(true) // Tracks loading state
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function CheckoutForm() {
-  const { cart } = useContext(CartContext)
+  const { cart, setCart } = useContext(CartContext)
   console.log(cart.total)
 
   const navigate = useNavigate()
@@ -25,8 +25,15 @@ export default function CheckoutForm() {
         body: JSON.stringify(Object.fromEntries(formData)), // Convert data to JSON string
       })
 
-      const result = await response // Parse JSON response from server
+      const result = await response.json() 
       console.log('Success:', result)
+      setCart((prevCart) => ({
+        products: [...prevCart.products], // Add new product to array
+        itemsInCart: prevCart.itemsInCart, // Increment count correctly
+        id: prevCart.id,
+        total: prevCart.total,
+        orderId: result[0].id, // Set the order ID
+      }))
       navigate('/payment')// Redirect to payment page
     } catch (error) {
       console.error('Error:', error)
