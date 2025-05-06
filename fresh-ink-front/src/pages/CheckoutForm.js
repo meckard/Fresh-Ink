@@ -27,13 +27,15 @@ export default function CheckoutForm() {
 
       const result = await response.json() 
       console.log('Success:', result)
-      setCart((prevCart) => ({
+      /* setCart((prevCart) => ({
         products: [...prevCart.products], // Add new product to array
         itemsInCart: prevCart.itemsInCart, // Increment count correctly
         id: prevCart.id,
         total: prevCart.total,
         orderId: result[0].id, // Set the order ID
-      }))
+      })) */
+
+        sessionStorage.setItem('orderId', result[0].id) // Store order ID in session storage
       navigate('/payment')// Redirect to payment page
     } catch (error) {
       console.error('Error:', error)
