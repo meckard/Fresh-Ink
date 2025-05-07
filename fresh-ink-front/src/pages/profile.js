@@ -5,6 +5,8 @@ export default function Profile() {
 const { user } = useContext(AuthContext)
 const {orders, setOrders} = useState()
 
+console.log(user)
+
   const getUserOrders = async () => {
     try {
       const response = await fetch('https://localhost:3003/users/my_orders', {
@@ -28,11 +30,11 @@ const {orders, setOrders} = useState()
   return (
     <div className="profile">
         <h1 className="profile-h1">Welcome to your Profile</h1>
-        <section className="profile-section">
+        {user ? <section className="profile-section">
             <h2 className="profile-h2">Your Details</h2>
-            <p className="profile-p">Name: {user.first_name} {user.last_name}</p>
+           {/* {user.first_name= !null ? <p className="profile-p">Name: {user.first_name} {user.last_name}</p> : <p></p>} */}
             <p className="profile-p">Email: {user.email}</p>
-        </section>
+        </section>: <p>loading</p>}
     </div>
   )
 }
