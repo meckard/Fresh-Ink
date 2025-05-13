@@ -572,11 +572,31 @@ form {
   align-items: center;
   flex-direction: column;
   margin: 50px;
-  border: 3px solid var(--color-black);
-  background-color: var(--color-deep-red);
-  color: var(--color-metallic-gold);
-  border-radius: 10px;
-  font-weight: bold;
-  width: 70%;
-  box-shadow: inset 0px 0px 3px 5px var(--color-off-white);
+
+  h1 {
+    border-bottom: 2px solid var(--color-deep-red);
+    padding-bottom: 30px;
+  }
+}
+
+.profile-section {
+  align-self: normal;
+  border-bottom: 2px solid var(--color-deep-red);
+  padding-bottom: 30px;
+  margin: 20px 50px;
+}
+
+.orders {
+  align-self: baseline;
+  margin: 20px 50px;
+  width: 100%;
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-deep-red);
+  margin: 20px 0;
+  width: 80%
 }

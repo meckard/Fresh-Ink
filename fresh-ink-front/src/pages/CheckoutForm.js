@@ -57,7 +57,7 @@ export default function CheckoutForm() {
                   name="email"
                   required
                   minLength="5"
-                  maxLength="20"
+                  maxLength="30"
                   size="22"
                 />
               </div>
